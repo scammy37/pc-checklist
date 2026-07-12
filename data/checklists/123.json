@@ -1,0 +1,42 @@
+{
+  "ticket": "123",
+  "createdBy": "MZ",
+  "createdAt": "2026-07-12T04:29:36.760Z",
+  "items": [
+    {
+      "id": 1,
+      "text": "Verify workstation powers on and OS boots successfully",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 2,
+      "text": "Confirm antivirus / endpoint protection is installed and up to date",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 3,
+      "text": "Test network connectivity (LAN and/or Wi-Fi)",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 4,
+      "text": "Verify all pending OS and driver updates are installed",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 5,
+      "text": "Confirm user data backup / profile migration completed",
+      "done": false,
+      "by": null,
+      "at": null
+    }
+  ]
+}
