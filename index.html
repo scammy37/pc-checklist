@@ -19,7 +19,8 @@
   <div class="card">
     <h2>Start or open a checklist</h2>
     <label class="field-label" for="ticketInput">Ticket / work order number</label>
-    <input type="text" id="ticketInput" placeholder="e.g. TCK-1234">
+    <input type="text" id="ticketInput" placeholder="e.g. 123">
+    <div class="empty-note" id="ticketPreview"></div>
     <div class="actions-row" style="margin-top:14px;">
       <span id="startError" class="error-note"></span>
       <button id="startBtn" type="button">Start / open checklist</button>
@@ -151,11 +152,25 @@
   document.getElementById('refreshBtn').addEventListener('click', loadDashboard);
   window.addEventListener('focus', loadDashboard);
 
+  const ticketInput = document.getElementById('ticketInput');
+  const ticketPreview = document.getElementById('ticketPreview');
+  function buildTicketId() {
+    const tech = techInput.value.trim();
+    const num = ticketInput.value.trim();
+    if (!tech || !num) return '';
+    return PCStore.sanitizeTicket(`${tech}-${num}`);
+  }
+  function updateTicketPreview() {
+    const id = buildTicketId();
+    ticketPreview.textContent = id ? `Will be saved as: ${id}` : '';
+  }
+  techInput.addEventListener('input', updateTicketPreview);
+  ticketInput.addEventListener('input', updateTicketPreview);
+
   document.getElementById('startBtn').addEventListener('click', async () => {
     startError.textContent = '';
     const tech = techInput.value.trim();
-    const rawTicket = document.getElementById('ticketInput').value;
-    const ticket = PCStore.sanitizeTicket(rawTicket);
+    const ticket = buildTicketId();
 
     if (!tech) { startError.textContent = 'Enter your name first.'; return; }
     if (!ticket) { startError.textContent = 'Enter a valid ticket number.'; return; }
