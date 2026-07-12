@@ -1,0 +1,13 @@
+{
+  "checklists": [
+    {
+      "ticket": "123",
+      "status": "in_progress",
+      "createdBy": "MZ",
+      "createdAt": "2026-07-12T04:29:36.760Z",
+      "updatedAt": "2026-07-12T04:29:36.760Z",
+      "doneCount": 0,
+      "totalCount": 5
+    }
+  ]
+}
