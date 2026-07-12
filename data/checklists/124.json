@@ -20,9 +20,9 @@
     {
       "id": 3,
       "text": "Test network connectivity (LAN and/or Wi-Fi)",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "MZ",
+      "at": "2026-07-12T04:30:32.342Z"
     },
     {
       "id": 4,
