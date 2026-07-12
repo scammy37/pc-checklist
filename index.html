@@ -29,9 +29,17 @@
 
   <div class="card">
     <div class="actions-row">
-      <h2 style="margin:0;">In progress</h2>
+      <label class="field-label" for="sortBy" style="margin:0;">Sort by</label>
+      <select id="sortBy">
+        <option value="recent">Recently updated</option>
+        <option value="tech">Tech</option>
+      </select>
       <button class="secondary" id="refreshBtn" type="button">Refresh</button>
     </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin:0 0 14px;">In progress</h2>
     <ul class="ticket-list" id="inProgressList"></ul>
     <div class="empty-note" id="inProgressEmpty" style="display:none;">Nothing in progress right now.</div>
   </div>
@@ -120,26 +128,61 @@
     return a;
   }
 
+  const SORT_KEY = 'pcChecklistSortBy';
+  const sortSelect = document.getElementById('sortBy');
+  sortSelect.value = localStorage.getItem(SORT_KEY) || 'recent';
+
+  const inProgressList = document.getElementById('inProgressList');
+  const completedList = document.getElementById('completedList');
+  let cached = { inProgress: [], completed: [] };
+
+  function renderList(container, entries, sortBy) {
+    container.innerHTML = '';
+    if (sortBy === 'tech') {
+      const sorted = entries.slice().sort((a, b) => {
+        const techCompare = (a.createdBy || '').localeCompare(b.createdBy || '');
+        if (techCompare !== 0) return techCompare;
+        return (b.updatedAt || '').localeCompare(a.updatedAt || '');
+      });
+      let lastTech = null;
+      sorted.forEach((entry) => {
+        const tech = entry.createdBy || 'Unknown';
+        if (tech !== lastTech) {
+          const header = document.createElement('div');
+          header.className = 'group-header';
+          header.textContent = tech;
+          container.appendChild(header);
+          lastTech = tech;
+        }
+        container.appendChild(renderTicketRow(entry));
+      });
+    } else {
+      entries
+        .slice()
+        .sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''))
+        .forEach((entry) => container.appendChild(renderTicketRow(entry)));
+    }
+  }
+
+  function renderAll() {
+    const sortBy = sortSelect.value;
+    localStorage.setItem(SORT_KEY, sortBy);
+    renderList(inProgressList, cached.inProgress, sortBy);
+    renderList(completedList, cached.completed, sortBy);
+    document.getElementById('inProgressEmpty').style.display = cached.inProgress.length ? 'none' : 'block';
+    document.getElementById('completedEmpty').style.display = cached.completed.length ? 'none' : 'block';
+  }
+
+  sortSelect.addEventListener('change', renderAll);
+
   async function loadDashboard() {
     statusNote.textContent = 'Loading checklists from GitHub…';
     try {
       const index = await PCStore.loadIndex();
-      const checklists = (index.checklists || []).slice().sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
-
-      const inProgress = checklists.filter((c) => c.status !== 'completed');
-      const completed = checklists.filter((c) => c.status === 'completed');
-
-      const inProgressList = document.getElementById('inProgressList');
-      const completedList = document.getElementById('completedList');
-      inProgressList.innerHTML = '';
-      completedList.innerHTML = '';
-
-      inProgress.forEach((c) => inProgressList.appendChild(renderTicketRow(c)));
-      completed.forEach((c) => completedList.appendChild(renderTicketRow(c)));
-
-      document.getElementById('inProgressEmpty').style.display = inProgress.length ? 'none' : 'block';
-      document.getElementById('completedEmpty').style.display = completed.length ? 'none' : 'block';
-
+      const checklists = index.checklists || [];
+      cached.inProgress = checklists.filter((c) => c.status !== 'completed');
+      cached.completed = checklists.filter((c) => c.status === 'completed');
+      renderAll();
       statusNote.textContent = `Last refreshed ${new Date().toLocaleTimeString()}.`;
     } catch (e) {
       statusNote.textContent = '';
