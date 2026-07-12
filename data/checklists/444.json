@@ -13,9 +13,9 @@
     {
       "id": 2,
       "text": "Confirm antivirus / endpoint protection is installed and up to date",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "MZ",
+      "at": "2026-07-12T14:00:32.140Z"
     },
     {
       "id": 3,
