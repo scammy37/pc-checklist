@@ -27,9 +27,9 @@
     {
       "id": 4,
       "text": "Verify all pending OS and driver updates are installed",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "MZ",
+      "at": "2026-07-12T14:00:29.115Z"
     },
     {
       "id": 5,
