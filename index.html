@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PC Checklist Dashboard</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="wrap">
+  <h1>PC Checklist Dashboard</h1>
+  <p class="subtitle">Shared across every tech's PC &mdash; data is stored in this GitHub repo, so open this page from any machine and you'll see the same checklists.</p>
+
+  <div class="card">
+    <label class="field-label" for="techName">Your name</label>
+    <input type="text" id="techName" placeholder="e.g. J. Smith">
+  </div>
+
+  <div class="card">
+    <h2>Start or open a checklist</h2>
+    <label class="field-label" for="ticketInput">Ticket / work order number</label>
+    <input type="text" id="ticketInput" placeholder="e.g. TCK-1234">
+    <div class="actions-row" style="margin-top:14px;">
+      <span id="startError" class="error-note"></span>
+      <button id="startBtn" type="button">Start / open checklist</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="actions-row">
+      <h2 style="margin:0;">In progress</h2>
+      <button class="secondary" id="refreshBtn" type="button">Refresh</button>
+    </div>
+    <ul class="ticket-list" id="inProgressList"></ul>
+    <div class="empty-note" id="inProgressEmpty" style="display:none;">Nothing in progress right now.</div>
+  </div>
+
+  <div class="card">
+    <h2>Completed</h2>
+    <ul class="ticket-list" id="completedList"></ul>
+    <div class="empty-note" id="completedEmpty" style="display:none;">No completed checklists yet.</div>
+  </div>
+
+  <div class="card">
+    <details class="settings">
+      <summary>Settings &mdash; GitHub token (required to start/update checklists)</summary>
+      <p>
+        Reads work without a token since this repo is public. To create or update a checklist, each tech needs a
+        GitHub <strong>fine-grained personal access token</strong> scoped only to this repository with
+        <strong>Contents: Read and write</strong> permission. Create one at
+        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>,
+        then paste it below. It is stored only in this browser's local storage, never sent anywhere except to GitHub's API.
+      </p>
+      <label class="field-label" for="tokenInput">GitHub token</label>
+      <input type="password" id="tokenInput" placeholder="github_pat_...">
+      <div class="actions-row" style="margin-top:12px;">
+        <span id="tokenStatus" class="empty-note"></span>
+        <button class="secondary" id="saveTokenBtn" type="button">Save token</button>
+      </div>
+    </details>
+  </div>
+
+  <p class="footnote" id="statusNote"></p>
+  <p class="footnote">
+    Note: this repo is public, so ticket numbers, tech names and timestamps saved here are publicly visible on GitHub.
+    Each checklist action (starting a checklist, marking an item complete) is committed to the repo's history.
+    If that's not acceptable for your data, switch the repo to private in GitHub settings &mdash; the app works the
+    same way, but reads will then also require a token.
+  </p>
+</div>
+
+<script src="assets/github-store.js"></script>
+<script>
+  const techInput = document.getElementById('techName');
+  techInput.value = localStorage.getItem(PCStore.TECH_KEY) || '';
+  techInput.addEventListener('input', () => localStorage.setItem(PCStore.TECH_KEY, techInput.value));
+
+  const tokenInput = document.getElementById('tokenInput');
+  const tokenStatus = document.getElementById('tokenStatus');
+  function refreshTokenStatus() {
+    tokenStatus.textContent = PCStore.getToken() ? 'Token saved in this browser.' : 'No token saved — reads only.';
+  }
+  tokenInput.value = PCStore.getToken();
+  refreshTokenStatus();
+  document.getElementById('saveTokenBtn').addEventListener('click', () => {
+    PCStore.setToken(tokenInput.value.trim());
+    refreshTokenStatus();
+  });
+
+  const startError = document.getElementById('startError');
+  const statusNote = document.getElementById('statusNote');
+
+  function timeAgo(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleString();
+  }
+
+  function renderTicketRow(entry) {
+    const a = document.createElement('a');
+    a.className = 'ticket-row' + (entry.status === 'completed' ? ' completed' : '');
+    a.href = `checklist.html?ticket=${encodeURIComponent(entry.ticket)}`;
+
+    const left = document.createElement('div');
+    const id = document.createElement('div');
+    id.className = 'ticket-id';
+    id.textContent = entry.ticket;
+    left.appendChild(id);
+    const sub = document.createElement('div');
+    sub.className = 'ticket-sub';
+    sub.textContent = `${entry.doneCount || 0}/${entry.totalCount || 5} done · started by ${entry.createdBy || 'unknown'} · updated ${timeAgo(entry.updatedAt)}`;
+    left.appendChild(sub);
+    a.appendChild(left);
+
+    const badge = document.createElement('span');
+    badge.className = 'badge ' + (entry.status === 'completed' ? 'completed' : 'in-progress');
+    badge.textContent = entry.status === 'completed' ? 'Completed' : 'In progress';
+    a.appendChild(badge);
+
+    return a;
+  }
+
+  async function loadDashboard() {
+    statusNote.textContent = 'Loading checklists from GitHub…';
+    try {
+      const index = await PCStore.loadIndex();
+      const checklists = (index.checklists || []).slice().sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
+
+      const inProgress = checklists.filter((c) => c.status !== 'completed');
+      const completed = checklists.filter((c) => c.status === 'completed');
+
+      const inProgressList = document.getElementById('inProgressList');
+      const completedList = document.getElementById('completedList');
+      inProgressList.innerHTML = '';
+      completedList.innerHTML = '';
+
+      inProgress.forEach((c) => inProgressList.appendChild(renderTicketRow(c)));
+      completed.forEach((c) => completedList.appendChild(renderTicketRow(c)));
+
+      document.getElementById('inProgressEmpty').style.display = inProgress.length ? 'none' : 'block';
+      document.getElementById('completedEmpty').style.display = completed.length ? 'none' : 'block';
+
+      statusNote.textContent = `Last refreshed ${new Date().toLocaleTimeString()}.`;
+    } catch (e) {
+      statusNote.textContent = '';
+      startError.textContent = '';
+      document.getElementById('inProgressEmpty').textContent = `Could not load checklists: ${e.message}`;
+      document.getElementById('inProgressEmpty').style.display = 'block';
+    }
+  }
+
+  document.getElementById('refreshBtn').addEventListener('click', loadDashboard);
+  window.addEventListener('focus', loadDashboard);
+
+  document.getElementById('startBtn').addEventListener('click', async () => {
+    startError.textContent = '';
+    const tech = techInput.value.trim();
+    const rawTicket = document.getElementById('ticketInput').value;
+    const ticket = PCStore.sanitizeTicket(rawTicket);
+
+    if (!tech) { startError.textContent = 'Enter your name first.'; return; }
+    if (!ticket) { startError.textContent = 'Enter a valid ticket number.'; return; }
+    if (!PCStore.getToken()) { startError.textContent = 'Add a GitHub token in Settings to start a checklist.'; return; }
+
+    const btn = document.getElementById('startBtn');
+    btn.disabled = true;
+    btn.textContent = 'Working…';
+    try {
+      const existing = await PCStore.loadChecklist(ticket);
+      if (!existing) {
+        const now = new Date().toISOString();
+        const defaultItems = [
+          { id: 1, text: 'Verify workstation powers on and OS boots successfully', done: false, by: null, at: null },
+          { id: 2, text: 'Confirm antivirus / endpoint protection is installed and up to date', done: false, by: null, at: null },
+          { id: 3, text: 'Test network connectivity (LAN and/or Wi-Fi)', done: false, by: null, at: null },
+          { id: 4, text: 'Verify all pending OS and driver updates are installed', done: false, by: null, at: null },
+          { id: 5, text: 'Confirm user data backup / profile migration completed', done: false, by: null, at: null },
+        ];
+        await PCStore.saveChecklist(
+          ticket,
+          () => ({ ticket, createdBy: tech, createdAt: now, items: defaultItems }),
+          `Start checklist ${ticket}`
+        );
+        await PCStore.upsertIndexEntry({
+          ticket,
+          status: 'in_progress',
+          createdBy: tech,
+          createdAt: now,
+          updatedAt: now,
+          doneCount: 0,
+          totalCount: defaultItems.length,
+        });
+      }
+      window.location.href = `checklist.html?ticket=${encodeURIComponent(ticket)}`;
+    } catch (e) {
+      startError.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Start / open checklist';
+    }
+  });
+
+  loadDashboard();
+</script>
+</body>
+</html>
