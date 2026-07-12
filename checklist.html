@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PC Checklist</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="wrap">
+  <p><a href="index.html">&larr; All checklists</a></p>
+  <h1 id="ticketTitle">Checklist</h1>
+  <p class="subtitle">Any tech on any PC can mark items complete here &mdash; changes save straight to the shared repo.</p>
+
+  <div class="card">
+    <label class="field-label" for="techName">Your name (tech completing items)</label>
+    <input type="text" id="techName" placeholder="e.g. J. Smith">
+  </div>
+
+  <div class="card">
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-label" id="progressLabel">Loading…</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <ul class="checklist" id="checklist"></ul>
+    <div class="error-note" id="loadError"></div>
+  </div>
+
+  <div class="card" id="emailSection">
+    <label class="field-label" for="emailTo">Send completed checklist to</label>
+    <input type="email" id="emailTo" placeholder="recipient@example.com">
+    <div class="actions-row" style="margin-top:14px;">
+      <span style="font-size:0.85rem;color:var(--muted);">All items completed &mdash; ready to send.</span>
+      <button id="sendEmailBtn" type="button">Send completion email</button>
+    </div>
+    <div id="emailSentNote">Email draft opened in your mail client. Review and hit send.</div>
+  </div>
+
+  <p class="footnote" id="statusNote"></p>
+</div>
+
+<script src="assets/github-store.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const ticket = PCStore.sanitizeTicket(params.get('ticket') || '');
+
+  const techInput = document.getElementById('techName');
+  techInput.value = localStorage.getItem(PCStore.TECH_KEY) || '';
+  techInput.addEventListener('input', () => localStorage.setItem(PCStore.TECH_KEY, techInput.value));
+
+  const checklistEl = document.getElementById('checklist');
+  const progressFill = document.getElementById('progressFill');
+  const progressLabel = document.getElementById('progressLabel');
+  const emailSection = document.getElementById('emailSection');
+  const emailSentNote = document.getElementById('emailSentNote');
+  const statusNote = document.getElementById('statusNote');
+  const loadError = document.getElementById('loadError');
+
+  document.getElementById('ticketTitle').textContent = ticket ? `Checklist — ${ticket}` : 'Checklist';
+
+  function formatTime(iso) {
+    return iso ? new Date(iso).toLocaleString() : '';
+  }
+
+  function render(data) {
+    checklistEl.innerHTML = '';
+    data.items.forEach((item) => {
+      const li = document.createElement('li');
+      li.className = 'item' + (item.done ? ' done' : '');
+
+      const main = document.createElement('div');
+      main.className = 'item-main';
+      const text = document.createElement('div');
+      text.className = 'item-text';
+      text.textContent = item.text;
+      main.appendChild(text);
+      const meta = document.createElement('div');
+      meta.className = 'item-meta';
+      meta.textContent = item.done ? `Completed by ${item.by} on ${formatTime(item.at)}` : '';
+      main.appendChild(meta);
+      li.appendChild(main);
+
+      const btn = document.createElement('button');
+      btn.textContent = item.done ? 'Completed' : 'Mark completed';
+      btn.disabled = item.done;
+      btn.addEventListener('click', () => markCompleted(item.id));
+      li.appendChild(btn);
+
+      checklistEl.appendChild(li);
+    });
+
+    const doneCount = data.items.filter((i) => i.done).length;
+    const total = data.items.length;
+    progressFill.style.width = `${(doneCount / total) * 100}%`;
+    progressLabel.textContent = `${doneCount} / ${total} completed`;
+
+    if (doneCount === total) {
+      emailSection.classList.add('visible');
+    } else {
+      emailSection.classList.remove('visible');
+      emailSentNote.style.display = 'none';
+    }
+
+    return { doneCount, total };
+  }
+
+  async function loadAndRender() {
+    if (!ticket) {
+      loadError.textContent = 'No ticket specified. Go back and start a checklist from the dashboard.';
+      return null;
+    }
+    statusNote.textContent = 'Loading…';
+    try {
+      const data = await PCStore.loadChecklist(ticket);
+      if (!data) {
+        loadError.textContent = `No checklist found for "${ticket}". Go back and start it from the dashboard.`;
+        return null;
+      }
+      loadError.textContent = '';
+      const counts = render(data);
+      statusNote.textContent = `Last refreshed ${new Date().toLocaleTimeString()}.`;
+      return counts;
+    } catch (e) {
+      loadError.textContent = `Could not load checklist: ${e.message}`;
+      return null;
+    }
+  }
+
+  async function markCompleted(itemId) {
+    const tech = techInput.value.trim();
+    if (!tech) {
+      alert('Enter your name before marking items completed.');
+      techInput.focus();
+      return;
+    }
+    if (!PCStore.getToken()) {
+      alert('Add a GitHub token on the dashboard (Settings) before saving changes.');
+      return;
+    }
+    statusNote.textContent = 'Saving…';
+    const now = new Date().toISOString();
+    try {
+      const saved = await PCStore.saveChecklist(
+        ticket,
+        (data) => ({
+          ...data,
+          items: data.items.map((i) => (i.id === itemId ? { ...i, done: true, by: tech, at: now } : i)),
+        }),
+        `Mark item ${itemId} complete on ${ticket}`
+      );
+      const counts = render(saved);
+      await PCStore.upsertIndexEntry({
+        ticket,
+        updatedAt: now,
+        doneCount: counts.doneCount,
+        totalCount: counts.total,
+        status: counts.doneCount === counts.total ? 'completed' : 'in_progress',
+      });
+      statusNote.textContent = `Saved. Last refreshed ${new Date().toLocaleTimeString()}.`;
+    } catch (e) {
+      statusNote.textContent = `Could not save: ${e.message}`;
+      await loadAndRender();
+    }
+  }
+
+  document.getElementById('sendEmailBtn').addEventListener('click', async () => {
+    const to = document.getElementById('emailTo').value.trim();
+    if (!to) { alert('Enter a recipient email address.'); return; }
+    const data = await PCStore.loadChecklist(ticket);
+    if (!data) return;
+    const subject = `PC Checklist Completed — ${ticket}`;
+    const lines = data.items.map((item, idx) =>
+      `${idx + 1}. ${item.text}\n   Completed by: ${item.by} on ${formatTime(item.at)}`
+    );
+    const body = `The following PC checklist (${ticket}) has been completed:\n\n${lines.join('\n\n')}`;
+    window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    emailSentNote.style.display = 'block';
+  });
+
+  loadAndRender();
+</script>
+</body>
+</html>

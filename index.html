@@ -3,332 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PC Checklist</title>
-<style>
-  :root {
-    --bg: #f4f6f8;
-    --card-bg: #ffffff;
-    --border: #dde3ea;
-    --text: #1f2937;
-    --muted: #6b7280;
-    --accent: #2563eb;
-    --accent-dark: #1d4ed8;
-    --done-bg: #ecfdf5;
-    --done-border: #10b981;
-    --done-text: #047857;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #111827;
-      --card-bg: #1f2937;
-      --border: #374151;
-      --text: #f3f4f6;
-      --muted: #9ca3af;
-      --accent: #3b82f6;
-      --accent-dark: #60a5fa;
-      --done-bg: #052e21;
-      --done-border: #10b981;
-      --done-text: #34d399;
-    }
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    padding: 24px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-  }
-  .wrap { max-width: 720px; margin: 0 auto; }
-  h1 { font-size: 1.5rem; margin-bottom: 4px; }
-  .subtitle { color: var(--muted); margin-top: 0; margin-bottom: 20px; font-size: 0.9rem; }
-
-  .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 16px;
-  }
-
-  label.field-label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin-bottom: 6px;
-  }
-  input[type="text"], input[type="email"] {
-    width: 100%;
-    padding: 9px 10px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 0.95rem;
-  }
-
-  .progress-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 4px;
-  }
-  .progress-track {
-    flex: 1;
-    height: 8px;
-    border-radius: 4px;
-    background: var(--border);
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: var(--accent);
-    width: 0%;
-    transition: width 0.25s ease;
-  }
-  .progress-label { font-size: 0.85rem; color: var(--muted); white-space: nowrap; }
-
-  ul.checklist { list-style: none; margin: 0; padding: 0; }
-  .item {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 14px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 10px;
-    background: var(--bg);
-  }
-  .item.done {
-    background: var(--done-bg);
-    border-color: var(--done-border);
-  }
-  .item-main { flex: 1; }
-  .item-text { font-size: 0.95rem; }
-  .item-meta {
-    margin-top: 6px;
-    font-size: 0.78rem;
-    color: var(--done-text);
-    display: none;
-  }
-  .item.done .item-meta { display: block; }
-
-  button {
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 8px 14px;
-    border-radius: 6px;
-    border: 1px solid var(--accent);
-    background: var(--accent);
-    color: white;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  button:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
-  button:disabled {
-    background: transparent;
-    color: var(--done-text);
-    border-color: var(--done-border);
-    cursor: default;
-  }
-  button.secondary {
-    background: transparent;
-    color: var(--muted);
-    border-color: var(--border);
-  }
-  button.secondary:hover { background: var(--border); color: var(--text); }
-
-  .actions-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  #emailSection { display: none; }
-  #emailSection.visible { display: block; }
-  #emailSentNote {
-    font-size: 0.85rem;
-    color: var(--done-text);
-    margin-top: 10px;
-    display: none;
-  }
-
-  .footnote { font-size: 0.78rem; color: var(--muted); margin-top: 18px; line-height: 1.4; }
-</style>
+<title>PC Checklist Dashboard</title>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <div class="wrap">
-  <h1>PC Checklist — Test (5 items)</h1>
-  <p class="subtitle">Multiple technicians can work this list on the same machine/browser. Progress is saved automatically. When all items are marked completed, a completion email is generated.</p>
+  <h1>PC Checklist Dashboard</h1>
+  <p class="subtitle">Shared across every tech's PC &mdash; data is stored in this GitHub repo, so open this page from any machine and you'll see the same checklists.</p>
 
   <div class="card">
-    <label class="field-label" for="techName">Your name (tech completing items)</label>
+    <label class="field-label" for="techName">Your name</label>
     <input type="text" id="techName" placeholder="e.g. J. Smith">
   </div>
 
   <div class="card">
-    <div class="progress-row">
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <span class="progress-label" id="progressLabel">0 / 5 completed</span>
+    <h2>Start or open a checklist</h2>
+    <label class="field-label" for="ticketInput">Ticket / work order number</label>
+    <input type="text" id="ticketInput" placeholder="e.g. TCK-1234">
+    <div class="actions-row" style="margin-top:14px;">
+      <span id="startError" class="error-note"></span>
+      <button id="startBtn" type="button">Start / open checklist</button>
     </div>
   </div>
 
   <div class="card">
-    <ul class="checklist" id="checklist"></ul>
-  </div>
-
-  <div class="card actions-row">
-    <button class="secondary" id="resetBtn" type="button">Reset checklist</button>
-  </div>
-
-  <div class="card" id="emailSection">
-    <label class="field-label" for="emailTo">Send completed checklist to</label>
-    <input type="email" id="emailTo" placeholder="recipient@example.com">
-    <div class="actions-row" style="margin-top:14px;">
-      <span style="font-size:0.85rem;color:var(--muted);">All 5 items completed &mdash; ready to send.</span>
-      <button id="sendEmailBtn" type="button">Send completion email</button>
+    <div class="actions-row">
+      <h2 style="margin:0;">In progress</h2>
+      <button class="secondary" id="refreshBtn" type="button">Refresh</button>
     </div>
-    <div id="emailSentNote">Email draft opened in your mail client. Review and hit send.</div>
+    <ul class="ticket-list" id="inProgressList"></ul>
+    <div class="empty-note" id="inProgressEmpty" style="display:none;">Nothing in progress right now.</div>
   </div>
 
+  <div class="card">
+    <h2>Completed</h2>
+    <ul class="ticket-list" id="completedList"></ul>
+    <div class="empty-note" id="completedEmpty" style="display:none;">No completed checklists yet.</div>
+  </div>
+
+  <div class="card">
+    <details class="settings">
+      <summary>Settings &mdash; GitHub token (required to start/update checklists)</summary>
+      <p>
+        Reads work without a token since this repo is public. To create or update a checklist, each tech needs a
+        GitHub <strong>fine-grained personal access token</strong> scoped only to this repository with
+        <strong>Contents: Read and write</strong> permission. Create one at
+        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>,
+        then paste it below. It is stored only in this browser's local storage, never sent anywhere except to GitHub's API.
+      </p>
+      <label class="field-label" for="tokenInput">GitHub token</label>
+      <input type="password" id="tokenInput" placeholder="github_pat_...">
+      <div class="actions-row" style="margin-top:12px;">
+        <span id="tokenStatus" class="empty-note"></span>
+        <button class="secondary" id="saveTokenBtn" type="button">Save token</button>
+      </div>
+    </details>
+  </div>
+
+  <p class="footnote" id="statusNote"></p>
   <p class="footnote">
-    This is a browser-local prototype: checklist state is stored in this browser (localStorage), so it persists between visits on this device but is not yet shared live across different computers. "Send completion email" opens a pre-filled email in your default mail app via a mailto link &mdash; no data leaves your browser except through that email. A shared backend (so techs on different machines see the same live list) is the natural next step once this test flow is confirmed.
+    Note: this repo is public, so ticket numbers, tech names and timestamps saved here are publicly visible on GitHub.
+    Each checklist action (starting a checklist, marking an item complete) is committed to the repo's history.
+    If that's not acceptable for your data, switch the repo to private in GitHub settings &mdash; the app works the
+    same way, but reads will then also require a token.
   </p>
 </div>
 
+<script src="assets/github-store.js"></script>
 <script>
-  const STORAGE_KEY = 'pcChecklistState_v1';
-  const TECH_KEY = 'pcChecklistTech_v1';
-
-  const defaultItems = [
-    { id: 1, text: 'Verify workstation powers on and OS boots successfully' },
-    { id: 2, text: 'Confirm antivirus / endpoint protection is installed and up to date' },
-    { id: 3, text: 'Test network connectivity (LAN and/or Wi-Fi)' },
-    { id: 4, text: 'Verify all pending OS and driver updates are installed' },
-    { id: 5, text: 'Confirm user data backup / profile migration completed' },
-  ];
-
-  function loadState() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) return JSON.parse(raw);
-    } catch (e) {}
-    return defaultItems.map(i => ({ ...i, done: false, by: null, at: null }));
-  }
-
-  function saveState(state) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }
-
-  let state = loadState();
-
   const techInput = document.getElementById('techName');
-  techInput.value = localStorage.getItem(TECH_KEY) || '';
-  techInput.addEventListener('input', () => {
-    localStorage.setItem(TECH_KEY, techInput.value);
+  techInput.value = localStorage.getItem(PCStore.TECH_KEY) || '';
+  techInput.addEventListener('input', () => localStorage.setItem(PCStore.TECH_KEY, techInput.value));
+
+  const tokenInput = document.getElementById('tokenInput');
+  const tokenStatus = document.getElementById('tokenStatus');
+  function refreshTokenStatus() {
+    tokenStatus.textContent = PCStore.getToken() ? 'Token saved in this browser.' : 'No token saved — reads only.';
+  }
+  tokenInput.value = PCStore.getToken();
+  refreshTokenStatus();
+  document.getElementById('saveTokenBtn').addEventListener('click', () => {
+    PCStore.setToken(tokenInput.value.trim());
+    refreshTokenStatus();
   });
 
-  const checklistEl = document.getElementById('checklist');
-  const progressFill = document.getElementById('progressFill');
-  const progressLabel = document.getElementById('progressLabel');
-  const emailSection = document.getElementById('emailSection');
-  const emailSentNote = document.getElementById('emailSentNote');
+  const startError = document.getElementById('startError');
+  const statusNote = document.getElementById('statusNote');
 
-  function formatTime(iso) {
+  function timeAgo(iso) {
     if (!iso) return '';
-    const d = new Date(iso);
-    return d.toLocaleString();
+    return new Date(iso).toLocaleString();
   }
 
-  function render() {
-    checklistEl.innerHTML = '';
-    state.forEach(item => {
-      const li = document.createElement('li');
-      li.className = 'item' + (item.done ? ' done' : '');
+  function renderTicketRow(entry) {
+    const a = document.createElement('a');
+    a.className = 'ticket-row' + (entry.status === 'completed' ? ' completed' : '');
+    a.href = `checklist.html?ticket=${encodeURIComponent(entry.ticket)}`;
 
-      const main = document.createElement('div');
-      main.className = 'item-main';
+    const left = document.createElement('div');
+    const id = document.createElement('div');
+    id.className = 'ticket-id';
+    id.textContent = entry.ticket;
+    left.appendChild(id);
+    const sub = document.createElement('div');
+    sub.className = 'ticket-sub';
+    sub.textContent = `${entry.doneCount || 0}/${entry.totalCount || 5} done · started by ${entry.createdBy || 'unknown'} · updated ${timeAgo(entry.updatedAt)}`;
+    left.appendChild(sub);
+    a.appendChild(left);
 
-      const text = document.createElement('div');
-      text.className = 'item-text';
-      text.textContent = item.text;
-      main.appendChild(text);
+    const badge = document.createElement('span');
+    badge.className = 'badge ' + (entry.status === 'completed' ? 'completed' : 'in-progress');
+    badge.textContent = entry.status === 'completed' ? 'Completed' : 'In progress';
+    a.appendChild(badge);
 
-      const meta = document.createElement('div');
-      meta.className = 'item-meta';
-      meta.textContent = item.done ? `Completed by ${item.by} on ${formatTime(item.at)}` : '';
-      main.appendChild(meta);
+    return a;
+  }
 
-      li.appendChild(main);
+  async function loadDashboard() {
+    statusNote.textContent = 'Loading checklists from GitHub…';
+    try {
+      const index = await PCStore.loadIndex();
+      const checklists = (index.checklists || []).slice().sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
 
-      const btn = document.createElement('button');
-      btn.textContent = item.done ? 'Completed' : 'Mark completed';
-      btn.disabled = item.done;
-      btn.addEventListener('click', () => markCompleted(item.id));
-      li.appendChild(btn);
+      const inProgress = checklists.filter((c) => c.status !== 'completed');
+      const completed = checklists.filter((c) => c.status === 'completed');
 
-      checklistEl.appendChild(li);
-    });
+      const inProgressList = document.getElementById('inProgressList');
+      const completedList = document.getElementById('completedList');
+      inProgressList.innerHTML = '';
+      completedList.innerHTML = '';
 
-    const doneCount = state.filter(i => i.done).length;
-    progressFill.style.width = `${(doneCount / state.length) * 100}%`;
-    progressLabel.textContent = `${doneCount} / ${state.length} completed`;
+      inProgress.forEach((c) => inProgressList.appendChild(renderTicketRow(c)));
+      completed.forEach((c) => completedList.appendChild(renderTicketRow(c)));
 
-    if (doneCount === state.length) {
-      emailSection.classList.add('visible');
-    } else {
-      emailSection.classList.remove('visible');
-      emailSentNote.style.display = 'none';
+      document.getElementById('inProgressEmpty').style.display = inProgress.length ? 'none' : 'block';
+      document.getElementById('completedEmpty').style.display = completed.length ? 'none' : 'block';
+
+      statusNote.textContent = `Last refreshed ${new Date().toLocaleTimeString()}.`;
+    } catch (e) {
+      statusNote.textContent = '';
+      startError.textContent = '';
+      document.getElementById('inProgressEmpty').textContent = `Could not load checklists: ${e.message}`;
+      document.getElementById('inProgressEmpty').style.display = 'block';
     }
   }
 
-  function markCompleted(id) {
+  document.getElementById('refreshBtn').addEventListener('click', loadDashboard);
+  window.addEventListener('focus', loadDashboard);
+
+  document.getElementById('startBtn').addEventListener('click', async () => {
+    startError.textContent = '';
     const tech = techInput.value.trim();
-    if (!tech) {
-      alert('Enter your name before marking items completed.');
-      techInput.focus();
-      return;
-    }
-    state = state.map(item =>
-      item.id === id
-        ? { ...item, done: true, by: tech, at: new Date().toISOString() }
-        : item
-    );
-    saveState(state);
-    render();
-  }
+    const rawTicket = document.getElementById('ticketInput').value;
+    const ticket = PCStore.sanitizeTicket(rawTicket);
 
-  document.getElementById('resetBtn').addEventListener('click', () => {
-    if (!confirm('Reset all checklist progress?')) return;
-    state = defaultItems.map(i => ({ ...i, done: false, by: null, at: null }));
-    saveState(state);
-    emailSentNote.style.display = 'none';
-    render();
+    if (!tech) { startError.textContent = 'Enter your name first.'; return; }
+    if (!ticket) { startError.textContent = 'Enter a valid ticket number.'; return; }
+    if (!PCStore.getToken()) { startError.textContent = 'Add a GitHub token in Settings to start a checklist.'; return; }
+
+    const btn = document.getElementById('startBtn');
+    btn.disabled = true;
+    btn.textContent = 'Working…';
+    try {
+      const existing = await PCStore.loadChecklist(ticket);
+      if (!existing) {
+        const now = new Date().toISOString();
+        const defaultItems = [
+          { id: 1, text: 'Verify workstation powers on and OS boots successfully', done: false, by: null, at: null },
+          { id: 2, text: 'Confirm antivirus / endpoint protection is installed and up to date', done: false, by: null, at: null },
+          { id: 3, text: 'Test network connectivity (LAN and/or Wi-Fi)', done: false, by: null, at: null },
+          { id: 4, text: 'Verify all pending OS and driver updates are installed', done: false, by: null, at: null },
+          { id: 5, text: 'Confirm user data backup / profile migration completed', done: false, by: null, at: null },
+        ];
+        await PCStore.saveChecklist(
+          ticket,
+          () => ({ ticket, createdBy: tech, createdAt: now, items: defaultItems }),
+          `Start checklist ${ticket}`
+        );
+        await PCStore.upsertIndexEntry({
+          ticket,
+          status: 'in_progress',
+          createdBy: tech,
+          createdAt: now,
+          updatedAt: now,
+          doneCount: 0,
+          totalCount: defaultItems.length,
+        });
+      }
+      window.location.href = `checklist.html?ticket=${encodeURIComponent(ticket)}`;
+    } catch (e) {
+      startError.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Start / open checklist';
+    }
   });
 
-  document.getElementById('sendEmailBtn').addEventListener('click', () => {
-    const to = document.getElementById('emailTo').value.trim();
-    if (!to) {
-      alert('Enter a recipient email address.');
-      return;
-    }
-    const subject = 'PC Checklist Completed';
-    const lines = state.map((item, idx) =>
-      `${idx + 1}. ${item.text}\n   Completed by: ${item.by} on ${formatTime(item.at)}`
-    );
-    const body = `The following PC checklist has been completed:\n\n${lines.join('\n\n')}`;
-    const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
-    emailSentNote.style.display = 'block';
-  });
-
-  render();
+  loadDashboard();
 </script>
 </body>
 </html>
