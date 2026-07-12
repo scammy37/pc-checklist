@@ -6,9 +6,9 @@
     {
       "id": 1,
       "text": "Verify workstation powers on and OS boots successfully",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "MZ",
+      "at": "2026-07-12T04:30:30.691Z"
     },
     {
       "id": 2,
