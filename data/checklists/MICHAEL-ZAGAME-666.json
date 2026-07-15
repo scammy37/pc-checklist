@@ -16,9 +16,9 @@
       "section": "Pre-work",
       "text": "Data Backup — Advise user to backup data to OneDrive. For dead machines, recover files if possible",
       "tag": "Replacement only",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:01:53.406Z"
     },
     {
       "id": 3,
