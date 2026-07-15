@@ -65,9 +65,9 @@
       "id": 8,
       "section": "Build",
       "text": "AD Move / GP Update — Move to correct OU, login as adm, set sleep to Never (plugged in), run gpupdate /force, reboot",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:01:59.171Z"
     },
     {
       "id": 9,
