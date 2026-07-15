@@ -192,9 +192,6 @@ details.settings summary { cursor: pointer; font-weight: 700; font-size: 1.05rem
 details.settings { margin-top: 4px; }
 details.settings p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
 
-#emailSection { display: none; }
-#emailSection.visible { display: block; }
-#emailSentNote { font-size: 0.85rem; color: var(--done-text); margin-top: 10px; display: none; }
 
 .print-only { display: none; }
 

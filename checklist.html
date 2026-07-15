@@ -32,16 +32,6 @@
     <div class="error-note" id="loadError"></div>
   </div>
 
-  <div class="card no-print" id="emailSection">
-    <label class="field-label" for="emailTo">Send completed checklist to</label>
-    <input type="email" id="emailTo" placeholder="recipient@example.com">
-    <div class="actions-row" style="margin-top:14px;">
-      <span style="font-size:0.85rem;color:var(--muted);">All items completed &mdash; ready to send.</span>
-      <button id="sendEmailBtn" type="button">Send completion email</button>
-    </div>
-    <div id="emailSentNote">Email draft opened in your mail client. Review and hit send.</div>
-  </div>
-
   <div class="card no-print">
     <div class="actions-row">
       <span style="font-size:0.85rem;color:var(--muted);">Print or save a PDF copy of this checklist, complete or not.</span>
@@ -69,8 +59,6 @@
   const checklistEl = document.getElementById('checklist');
   const progressFill = document.getElementById('progressFill');
   const progressLabel = document.getElementById('progressLabel');
-  const emailSection = document.getElementById('emailSection');
-  const emailSentNote = document.getElementById('emailSentNote');
   const printMeta = document.getElementById('printMeta');
   const statusNote = document.getElementById('statusNote');
   const loadError = document.getElementById('loadError');
@@ -158,12 +146,6 @@
     progressFill.style.width = `${(doneCount / total) * 100}%`;
     progressLabel.textContent = `${doneCount} / ${total} completed`;
 
-    if (doneCount === total) {
-      emailSection.classList.add('visible');
-    } else {
-      emailSection.classList.remove('visible');
-      emailSentNote.style.display = 'none';
-    }
     printMeta.textContent = `Ticket ${ticket} — ${new Date().toLocaleDateString()} — ${doneCount}/${total} items complete`;
 
     return { doneCount, total };
@@ -230,20 +212,6 @@
 
   document.getElementById('printBtn').addEventListener('click', () => {
     window.print();
-  });
-
-  document.getElementById('sendEmailBtn').addEventListener('click', async () => {
-    const to = document.getElementById('emailTo').value.trim();
-    if (!to) { alert('Enter a recipient email address.'); return; }
-    const data = await PCStore.loadChecklist(ticket);
-    if (!data) return;
-    const subject = `PC Checklist Completed — ${ticket}`;
-    const lines = data.items.map((item, idx) =>
-      `${idx + 1}. ${item.title}\n   Completed by: ${item.by} on ${formatTime(item.at)}`
-    );
-    const body = `The following PC checklist (${ticket}) has been completed:\n\n${lines.join('\n\n')}`;
-    window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    emailSentNote.style.display = 'block';
   });
 
   loadAndRender();
