@@ -202,9 +202,9 @@
       "id": 25,
       "section": "User Setup",
       "text": "Regional Settings — Verify time zone, keyboard layout, and language preferences",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Jay G",
+      "at": "2026-07-15T11:02:53.980Z"
     },
     {
       "id": 26,
