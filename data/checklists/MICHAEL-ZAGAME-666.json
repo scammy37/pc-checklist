@@ -7,9 +7,9 @@
       "id": 1,
       "section": "Pre-work",
       "text": "Preparation — Verify all required information is completed in the ticket",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:01:08.981Z"
     },
     {
       "id": 2,
