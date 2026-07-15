@@ -146,9 +146,9 @@
       "id": 18,
       "section": "QA",
       "text": "Confirm DirectAccess / Zero Network / Zscaler — All three verified working",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:02:21.747Z"
     },
     {
       "id": 19,
