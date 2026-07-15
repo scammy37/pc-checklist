@@ -37,9 +37,9 @@
         "Review and flag unapproved software.",
         "Discuss all non-standard software with the user before reinstalling."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Lopez",
+      "at": "2026-07-15T22:42:42.407Z"
     },
     {
       "id": 4,
