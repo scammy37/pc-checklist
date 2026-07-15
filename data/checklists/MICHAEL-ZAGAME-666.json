@@ -41,9 +41,9 @@
       "id": 5,
       "section": "Hardware",
       "text": "Physical Check — Power on and verify screen, keyboard, touchpad, and ports",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:01:55.106Z"
     },
     {
       "id": 6,
