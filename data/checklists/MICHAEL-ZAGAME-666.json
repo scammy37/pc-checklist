@@ -211,9 +211,9 @@
       "section": "User Setup",
       "text": "Validate Printer — Verify printers installed/mapped correctly",
       "tag": "N/A for remote users",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:01:15.963Z"
     },
     {
       "id": 27,
