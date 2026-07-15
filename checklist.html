@@ -30,13 +30,6 @@
     <div class="error-note" id="loadError"></div>
   </div>
 
-  <div class="card no-print">
-    <div class="actions-row">
-      <span style="font-size:0.85rem;color:var(--muted);">Copy a plain-text summary for pasting into Freshservice.</span>
-      <button class="secondary" id="copyBtn" type="button">Copy for Freshservice</button>
-    </div>
-  </div>
-
   <div class="card no-print" id="emailSection">
     <label class="field-label" for="emailTo">Send completed checklist to</label>
     <input type="email" id="emailTo" placeholder="recipient@example.com">
@@ -227,38 +220,6 @@
       await loadAndRender();
     }
   }
-
-  document.getElementById('copyBtn').addEventListener('click', async () => {
-    const data = await PCStore.loadChecklist(ticket);
-    if (!data) return;
-    const lines = [];
-    lines.push('=== PC DEPLOYMENT CHECKLIST ===');
-    lines.push(`Ticket #: ${ticket}`);
-    lines.push('');
-    let lastSection = null;
-    data.items.forEach((item) => {
-      if (item.section && item.section !== lastSection) {
-        lines.push(`--- ${item.section.toUpperCase()} ---`);
-        lastSection = item.section;
-      }
-      const stamp = item.done ? `[${item.by} ${formatTime(item.at)}]` : '[          ]';
-      lines.push(`${stamp} ${item.title}${item.tag ? ' (' + item.tag + ')' : ''}`);
-      (item.steps || []).forEach((s) => lines.push(`      - ${s}`));
-      (item.links || []).forEach((l) => lines.push(`      ${l.label}: ${l.url}`));
-    });
-    lines.push('');
-    const doneCount = data.items.filter((i) => i.done).length;
-    lines.push(`Progress: ${doneCount}/${data.items.length} items complete`);
-
-    const copyBtn = document.getElementById('copyBtn');
-    try {
-      await navigator.clipboard.writeText(lines.join('\n'));
-      copyBtn.textContent = 'Copied!';
-    } catch (e) {
-      copyBtn.textContent = 'Copy failed';
-    }
-    setTimeout(() => { copyBtn.textContent = 'Copy for Freshservice'; }, 2000);
-  });
 
   document.getElementById('printBtn').addEventListener('click', () => {
     window.print();
