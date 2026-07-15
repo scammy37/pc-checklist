@@ -70,9 +70,9 @@
       "steps": [
         "Create the computer in AD using the \"Create Computer Account\" script in the IT Tools folder on your desktop."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Lopez",
+      "at": "2026-07-15T22:42:58.406Z"
     },
     {
       "id": 7,
