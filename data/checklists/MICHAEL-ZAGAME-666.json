@@ -122,9 +122,9 @@
       "id": 15,
       "section": "Security",
       "text": "Verify Local Admin Setup — Confirm 'Corp IT' local admin account configured per policy",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:02:14.569Z"
     },
     {
       "id": 16,
