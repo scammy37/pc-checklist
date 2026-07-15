@@ -179,9 +179,9 @@
       "steps": [
         "Ensure BitLocker is enabled, and recovery key is backed up in Active Directory."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T20:37:19.857Z"
     },
     {
       "id": 14,
