@@ -49,9 +49,9 @@
       "id": 6,
       "section": "Build",
       "text": "Create Computer Account — Run 'Create Computer Account' script from IT Tools folder on desktop",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:01:58.416Z"
     },
     {
       "id": 7,
