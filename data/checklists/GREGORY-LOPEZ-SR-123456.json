@@ -22,9 +22,9 @@
       "steps": [
         "Advise user to backup their data to OneDrive. For dead machines, try to get the files if possible."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Lopez",
+      "at": "2026-07-15T22:42:23.882Z"
     },
     {
       "id": 3,
