@@ -133,7 +133,7 @@
   }
 
   const sortButtons = document.querySelectorAll('.sort-btn');
-  let currentSort = 'recent';
+  let currentSort = 'tech';
 
   function setActiveSortButton() {
     sortButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.sort === currentSort));
