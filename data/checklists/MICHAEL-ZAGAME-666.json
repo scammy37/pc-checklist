@@ -228,9 +228,9 @@
       "id": 28,
       "section": "Close-out",
       "text": "Post-Onboarding Review — Add 1-week follow-up reminder to verify system performance and access",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Jay G",
+      "at": "2026-07-15T11:03:07.328Z"
     },
     {
       "id": 29,
