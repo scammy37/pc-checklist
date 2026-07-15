@@ -8,7 +8,6 @@ const GH_BRANCH = 'main';
 const GH_API = 'https://api.github.com';
 
 const TOKEN_KEY = 'pcChecklistGhToken';
-const TECH_KEY = 'pcChecklistTech_v1';
 
 function getToken() {
   return localStorage.getItem(TOKEN_KEY) || '';
@@ -133,5 +132,4 @@ window.PCStore = {
   loadChecklist,
   saveChecklist,
   upsertIndexEntry,
-  TECH_KEY,
 };

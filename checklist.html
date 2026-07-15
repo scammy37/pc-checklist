@@ -65,8 +65,6 @@
     opt.textContent = name;
     techInput.appendChild(opt);
   });
-  techInput.value = localStorage.getItem(PCStore.TECH_KEY) || '';
-  techInput.addEventListener('change', () => localStorage.setItem(PCStore.TECH_KEY, techInput.value));
 
   const checklistEl = document.getElementById('checklist');
   const progressFill = document.getElementById('progressFill');

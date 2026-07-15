@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PC Checklist Dashboard</title>
+<title>PC Deployment Dashboard</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <div class="wrap">
-  <h1>PC Checklist Dashboard</h1>
+  <h1>PC Deployment Dashboard</h1>
 
   <div class="card">
     <label class="field-label" for="techName">Agent</label>
@@ -87,8 +87,6 @@
     opt.textContent = name;
     techInput.appendChild(opt);
   });
-  techInput.value = localStorage.getItem(PCStore.TECH_KEY) || '';
-  techInput.addEventListener('change', () => localStorage.setItem(PCStore.TECH_KEY, techInput.value));
 
   const tokenInput = document.getElementById('tokenInput');
   const tokenStatus = document.getElementById('tokenStatus');
