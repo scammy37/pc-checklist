@@ -245,9 +245,9 @@
       "id": 30,
       "section": "Close-out",
       "text": "Ticket Closure — Verify all items complete, close ticket",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:01:19.832Z"
     }
   ]
 }
