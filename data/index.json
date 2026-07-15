@@ -17,6 +17,15 @@
       "updatedAt": "2026-07-15T19:57:04.213Z",
       "doneCount": 30,
       "totalCount": 30
+    },
+    {
+      "ticket": "GREGORY-LOPEZ-SR-123456",
+      "status": "in_progress",
+      "createdBy": "Gregory Lopez",
+      "createdAt": "2026-07-15T20:27:46.675Z",
+      "updatedAt": "2026-07-15T20:27:46.675Z",
+      "doneCount": 0,
+      "totalCount": 30
     }
   ]
 }
