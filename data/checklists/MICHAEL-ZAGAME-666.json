@@ -89,9 +89,9 @@
       "id": 11,
       "section": "Software",
       "text": "Install Practice-Specific Software — MGALFA, Python, Excel Add-Ins, etc. per Combined PC Build Checklist",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:02:08.052Z"
     },
     {
       "id": 12,
