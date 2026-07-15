@@ -71,6 +71,15 @@
       "updatedAt": "2026-07-15T13:26:45.674Z",
       "doneCount": 5,
       "totalCount": 30
+    },
+    {
+      "ticket": "MZ-111",
+      "status": "in_progress",
+      "createdBy": "MZ",
+      "createdAt": "2026-07-15T14:53:15.303Z",
+      "updatedAt": "2026-07-15T14:53:15.303Z",
+      "doneCount": 0,
+      "totalCount": 30
     }
   ]
 }
