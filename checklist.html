@@ -69,6 +69,14 @@
     return iso ? new Date(iso).toLocaleString() : '';
   }
 
+  function getLastAgent(data) {
+    const completed = data.items.filter((i) => i.done && i.by && i.at);
+    if (completed.length) {
+      return completed.reduce((latest, item) => (item.at > latest.at ? item : latest)).by;
+    }
+    return data.createdBy || '';
+  }
+
   function render(data) {
     checklistEl.innerHTML = '';
     let lastSection = null;
@@ -165,6 +173,12 @@
       }
       loadError.textContent = '';
       const counts = render(data);
+      if (!techInput.value) {
+        const lastAgent = getLastAgent(data);
+        if (lastAgent && Array.from(techInput.options).some((o) => o.value === lastAgent)) {
+          techInput.value = lastAgent;
+        }
+      }
       statusNote.textContent = `Last refreshed ${new Date().toLocaleString()}.`;
       return counts;
     } catch (e) {
