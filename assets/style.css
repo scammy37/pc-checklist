@@ -57,8 +57,8 @@ a { color: var(--accent); }
 label.field-label {
   display: block;
   font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--muted);
+  font-weight: 700;
+  color: var(--text);
   text-transform: uppercase;
   letter-spacing: 0.03em;
   margin-bottom: 6px;
@@ -174,6 +174,16 @@ button.secondary { background: transparent; color: var(--muted); border-color: v
 button.secondary:hover { background: var(--border); color: var(--text); }
 
 .actions-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+.sort-buttons { display: flex; gap: 8px; }
+.sort-btn {
+  flex: 1;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.sort-btn:hover { background: var(--border); color: var(--text); }
+.sort-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
 .empty-note { font-size: 0.85rem; color: var(--muted); padding: 6px 2px; }
 .error-note { font-size: 0.85rem; color: var(--error-text); padding: 6px 2px; }

@@ -9,7 +9,6 @@
 <body>
 <div class="wrap">
   <h1>PC Checklist Dashboard</h1>
-  <p class="subtitle">Shared across every tech's PC &mdash; data is stored in this GitHub repo, so open this page from any machine and you'll see the same checklists.</p>
 
   <div class="card">
     <label class="field-label" for="techName">Your name</label>
@@ -27,12 +26,13 @@
   </div>
 
   <div class="card">
-    <div class="actions-row">
-      <label class="field-label" for="sortBy" style="margin:0;">Sort by</label>
-      <select id="sortBy">
-        <option value="recent">Recently updated</option>
-        <option value="tech">Tech</option>
-      </select>
+    <label class="field-label">Sort by</label>
+    <div class="sort-buttons" id="sortButtons">
+      <button type="button" class="sort-btn" data-sort="recent">Recent</button>
+      <button type="button" class="sort-btn" data-sort="tech">Tech</button>
+      <button type="button" class="sort-btn" data-sort="ticket">Ticket #</button>
+    </div>
+    <div class="actions-row" style="margin-top:14px; justify-content:flex-end;">
       <button class="secondary" id="refreshBtn" type="button">Refresh</button>
     </div>
   </div>
@@ -129,8 +129,13 @@
   }
 
   const SORT_KEY = 'pcChecklistSortBy';
-  const sortSelect = document.getElementById('sortBy');
-  sortSelect.value = localStorage.getItem(SORT_KEY) || 'recent';
+  const sortButtons = document.querySelectorAll('.sort-btn');
+  let currentSort = localStorage.getItem(SORT_KEY) || 'recent';
+
+  function setActiveSortButton() {
+    sortButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.sort === currentSort));
+  }
+  setActiveSortButton();
 
   const inProgressList = document.getElementById('inProgressList');
   const completedList = document.getElementById('completedList');
@@ -156,6 +161,11 @@
         }
         container.appendChild(renderTicketRow(entry));
       });
+    } else if (sortBy === 'ticket') {
+      entries
+        .slice()
+        .sort((a, b) => (a.ticket || '').localeCompare(b.ticket || ''))
+        .forEach((entry) => container.appendChild(renderTicketRow(entry)));
     } else {
       entries
         .slice()
@@ -165,15 +175,18 @@
   }
 
   function renderAll() {
-    const sortBy = sortSelect.value;
-    localStorage.setItem(SORT_KEY, sortBy);
-    renderList(inProgressList, cached.inProgress, sortBy);
-    renderList(completedList, cached.completed, sortBy);
+    localStorage.setItem(SORT_KEY, currentSort);
+    setActiveSortButton();
+    renderList(inProgressList, cached.inProgress, currentSort);
+    renderList(completedList, cached.completed, currentSort);
     document.getElementById('inProgressEmpty').style.display = cached.inProgress.length ? 'none' : 'block';
     document.getElementById('completedEmpty').style.display = cached.completed.length ? 'none' : 'block';
   }
 
-  sortSelect.addEventListener('change', renderAll);
+  sortButtons.forEach((btn) => btn.addEventListener('click', () => {
+    currentSort = btn.dataset.sort;
+    renderAll();
+  }));
 
   async function loadDashboard() {
     statusNote.textContent = 'Loading checklists from GitHub…';
