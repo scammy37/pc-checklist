@@ -11,11 +11,11 @@
     },
     {
       "ticket": "RUBAYAT-MURTAZA-SR-612847",
-      "status": "in_progress",
+      "status": "completed",
       "createdBy": "Rubayat Murtaza",
       "createdAt": "2026-07-15T19:55:49.929Z",
-      "updatedAt": "2026-07-15T19:57:02.885Z",
-      "doneCount": 29,
+      "updatedAt": "2026-07-15T19:57:04.213Z",
+      "doneCount": 30,
       "totalCount": 30
     }
   ]
