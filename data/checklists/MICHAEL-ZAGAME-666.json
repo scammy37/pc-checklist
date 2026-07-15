@@ -25,9 +25,9 @@
       "section": "Pre-work",
       "text": "Verify Installed Applications — Export software list from Lansweeper, send to user, flag unapproved software",
       "tag": "Replacement only",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Jay G",
+      "at": "2026-07-15T11:02:45.408Z"
     },
     {
       "id": 4,
