@@ -213,9 +213,9 @@
       "steps": [
         "Confirm that all required software has been installed."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Rubayat Murtaza",
+      "at": "2026-07-15T19:56:40.389Z"
     },
     {
       "id": 17,
