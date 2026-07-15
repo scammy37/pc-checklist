@@ -170,9 +170,9 @@
       "id": 21,
       "section": "User Setup",
       "text": "Defender / Antivirus Check — Verify Microsoft Defender or TrendMicro is active and up to date",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:02:29.647Z"
     },
     {
       "id": 22,
