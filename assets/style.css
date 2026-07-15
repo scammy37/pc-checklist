@@ -186,3 +186,23 @@ details.settings p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; 
 #emailSection { display: none; }
 #emailSection.visible { display: block; }
 #emailSentNote { font-size: 0.85rem; color: var(--done-text); margin-top: 10px; display: none; }
+
+#printSection { display: none; }
+#printSection.visible { display: block; }
+
+.print-only { display: none; }
+
+@media print {
+  body { background: #fff; padding: 0; }
+  .no-print { display: none !important; }
+  .print-only { display: block; }
+  .card { border: none; padding: 0; margin-bottom: 14px; break-inside: avoid; }
+  h1 { font-size: 1.2rem; }
+  #printMeta { font-size: 0.85rem; color: #444; margin-bottom: 16px; }
+  .item { border: 1px solid #ccc; background: #fff; break-inside: avoid; }
+  .item.done { background: #fff; }
+  .item-meta { display: block !important; }
+  .item button { display: none; }
+  .item-links a { color: #000; text-decoration: underline; }
+  .item-links a::after { content: " (" attr(href) ")"; font-size: 0.75rem; color: #555; }
+}
