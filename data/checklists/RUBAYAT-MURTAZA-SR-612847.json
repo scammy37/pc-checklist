@@ -249,9 +249,9 @@
         "(New user) Sign in as the user.",
         "(Existing user) Hand/mail the new laptop off to the user and have them sign in. If local setup, configure the machine; if remote, have the user sign in and start a Bomgar session with you."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Rubayat Murtaza",
+      "at": "2026-07-15T19:56:45.475Z"
     },
     {
       "id": 20,
