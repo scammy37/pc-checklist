@@ -62,6 +62,15 @@
       "updatedAt": "2026-07-15T13:14:25.014Z",
       "doneCount": 0,
       "totalCount": 30
+    },
+    {
+      "ticket": "RUBAYAT-789",
+      "status": "in_progress",
+      "createdBy": "Rubayat",
+      "createdAt": "2026-07-15T13:18:29.006Z",
+      "updatedAt": "2026-07-15T13:18:29.006Z",
+      "doneCount": 0,
+      "totalCount": 30
     }
   ]
 }
