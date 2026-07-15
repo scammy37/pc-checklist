@@ -1,0 +1,253 @@
+{
+  "ticket": "MICHAEL-ZAGAME-666",
+  "createdBy": "Michael Zagame",
+  "createdAt": "2026-07-15T11:00:45.708Z",
+  "items": [
+    {
+      "id": 1,
+      "section": "Pre-work",
+      "text": "Preparation — Verify all required information is completed in the ticket",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 2,
+      "section": "Pre-work",
+      "text": "Data Backup — Advise user to backup data to OneDrive. For dead machines, recover files if possible",
+      "tag": "Replacement only",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 3,
+      "section": "Pre-work",
+      "text": "Verify Installed Applications — Export software list from Lansweeper, send to user, flag unapproved software",
+      "tag": "Replacement only",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 4,
+      "section": "Hardware",
+      "text": "Hardware Validation — Verify device model, RAM, SSD size, and condition match the order",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 5,
+      "section": "Hardware",
+      "text": "Physical Check — Power on and verify screen, keyboard, touchpad, and ports",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 6,
+      "section": "Build",
+      "text": "Create Computer Account — Run 'Create Computer Account' script from IT Tools folder on desktop",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 7,
+      "section": "Build",
+      "text": "Image Laptop — Set BIOS password to pssit25, then image the laptop per SCCM Image Deployment Guide",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 8,
+      "section": "Build",
+      "text": "AD Move / GP Update — Move to correct OU, login as adm, set sleep to Never (plugged in), run gpupdate /force, reboot",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 9,
+      "section": "Build",
+      "text": "Connect to Guest Wi-Fi — Connect, reboot to verify login, confirm DA / ZN / AoVPN works",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 10,
+      "section": "Software",
+      "text": "Install Company Software — Verify all PSS-supported practice apps per Combined PC Build Checklist",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 11,
+      "section": "Software",
+      "text": "Install Practice-Specific Software — MGALFA, Python, Excel Add-Ins, etc. per Combined PC Build Checklist",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 12,
+      "section": "Software",
+      "text": "Schedule/Apply Patches — Create Qualys job per New PC Qualys Job procedure; run Commercial Vantage Lenovo updates",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 13,
+      "section": "Security",
+      "text": "BitLocker Encryption — Confirm enabled and recovery key is backed up in Active Directory",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 14,
+      "section": "Security",
+      "text": "MessageSave Settings Restore — Follow 'MessageSave – Restore User Settings' procedure",
+      "tag": "Replacement only",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 15,
+      "section": "Security",
+      "text": "Verify Local Admin Setup — Confirm 'Corp IT' local admin account configured per policy",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 16,
+      "section": "QA",
+      "text": "Verify Proper Software Installed — Confirm all required software is present",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 17,
+      "section": "QA",
+      "text": "Device Manager Review — Verify no device errors or missing drivers",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 18,
+      "section": "QA",
+      "text": "Confirm DirectAccess / Zero Network / Zscaler — All three verified working",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 19,
+      "section": "User Setup",
+      "text": "Account Setup — New user: sign in as user. Existing user: hand off / start Bomgar session if remote",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 20,
+      "section": "User Setup",
+      "text": "Okta Verify Setup — Verify Okta Verify desktop app and Intune certificate; enroll user",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 21,
+      "section": "User Setup",
+      "text": "Defender / Antivirus Check — Verify Microsoft Defender or TrendMicro is active and up to date",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 22,
+      "section": "User Setup",
+      "text": "Verify Lansweeper Entry — Validate new laptop details collected; update LS Agent group if needed",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 23,
+      "section": "User Setup",
+      "text": "Outlook Configuration — Follow 'Outlook – New User Setup' procedure",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 24,
+      "section": "User Setup",
+      "text": "Log In to Key Applications — Okta, Outlook, Teams, OneDrive",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 25,
+      "section": "User Setup",
+      "text": "Regional Settings — Verify time zone, keyboard layout, and language preferences",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 26,
+      "section": "User Setup",
+      "text": "Validate Printer — Verify printers installed/mapped correctly",
+      "tag": "N/A for remote users",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 27,
+      "section": "User Setup",
+      "text": "Philly Users Only — Add NAC Groups (email chichd@milliman.com), disable credential guard, reboot",
+      "tag": "Philly only",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 28,
+      "section": "Close-out",
+      "text": "Post-Onboarding Review — Add 1-week follow-up reminder to verify system performance and access",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 29,
+      "section": "Close-out",
+      "text": "Receive Old Laptop + Decom Form — Confirm old laptop returned, submit PSS Device Decommission form",
+      "tag": "Replacement only",
+      "done": false,
+      "by": null,
+      "at": null
+    },
+    {
+      "id": 30,
+      "section": "Close-out",
+      "text": "Ticket Closure — Verify all items complete, close ticket",
+      "done": false,
+      "by": null,
+      "at": null
+    }
+  ]
+}
