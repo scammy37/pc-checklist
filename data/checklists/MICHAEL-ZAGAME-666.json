@@ -73,9 +73,9 @@
       "id": 9,
       "section": "Build",
       "text": "Connect to Guest Wi-Fi — Connect, reboot to verify login, confirm DA / ZN / AoVPN works",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:02:00.205Z"
     },
     {
       "id": 10,
