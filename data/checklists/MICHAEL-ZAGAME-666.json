@@ -130,9 +130,9 @@
       "id": 16,
       "section": "QA",
       "text": "Verify Proper Software Installed — Confirm all required software is present",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:02:20.269Z"
     },
     {
       "id": 17,
