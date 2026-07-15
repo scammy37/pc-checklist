@@ -138,9 +138,9 @@
       "id": 17,
       "section": "QA",
       "text": "Device Manager Review — Verify no device errors or missing drivers",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:02:26.773Z"
     },
     {
       "id": 18,
