@@ -103,9 +103,9 @@
         "Run gpupdate /force to apply GPO.",
         "Reboot laptop."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Wied",
+      "at": "2026-07-15T20:15:31.552Z"
     },
     {
       "id": 9,
