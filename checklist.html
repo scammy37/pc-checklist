@@ -47,9 +47,9 @@
     <div id="emailSentNote">Email draft opened in your mail client. Review and hit send.</div>
   </div>
 
-  <div class="card no-print" id="printSection">
+  <div class="card no-print">
     <div class="actions-row">
-      <span style="font-size:0.85rem;color:var(--muted);">All items completed &mdash; save a copy for the ticket record.</span>
+      <span style="font-size:0.85rem;color:var(--muted);">Print or save a PDF copy of this checklist, complete or not.</span>
       <button class="secondary" id="printBtn" type="button">Print / Save as PDF</button>
     </div>
   </div>
@@ -71,7 +71,6 @@
   const progressLabel = document.getElementById('progressLabel');
   const emailSection = document.getElementById('emailSection');
   const emailSentNote = document.getElementById('emailSentNote');
-  const printSection = document.getElementById('printSection');
   const printMeta = document.getElementById('printMeta');
   const statusNote = document.getElementById('statusNote');
   const loadError = document.getElementById('loadError');
@@ -161,13 +160,11 @@
 
     if (doneCount === total) {
       emailSection.classList.add('visible');
-      printSection.classList.add('visible');
-      printMeta.textContent = `Ticket ${ticket} — completed ${new Date().toLocaleDateString()} — ${doneCount}/${total} items complete`;
     } else {
       emailSection.classList.remove('visible');
       emailSentNote.style.display = 'none';
-      printSection.classList.remove('visible');
     }
+    printMeta.textContent = `Ticket ${ticket} — ${new Date().toLocaleDateString()} — ${doneCount}/${total} items complete`;
 
     return { doneCount, total };
   }
