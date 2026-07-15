@@ -59,9 +59,9 @@
       "steps": [
         "Power on the laptop and perform a basic hardware check (screen, keyboard, touchpad, ports)."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Lopez",
+      "at": "2026-07-15T22:42:52.392Z"
     },
     {
       "id": 6,
