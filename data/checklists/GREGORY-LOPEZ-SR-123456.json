@@ -10,9 +10,9 @@
       "steps": [
         "Verify all required information is completed in the ticket."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Lopez",
+      "at": "2026-07-15T22:42:09.489Z"
     },
     {
       "id": 2,
