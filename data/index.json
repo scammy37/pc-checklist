@@ -53,6 +53,15 @@
       "updatedAt": "2026-07-15T12:28:05.453Z",
       "doneCount": 5,
       "totalCount": 30
+    },
+    {
+      "ticket": "MZ-12345",
+      "status": "in_progress",
+      "createdBy": "MZ",
+      "createdAt": "2026-07-15T13:14:25.014Z",
+      "updatedAt": "2026-07-15T13:14:25.014Z",
+      "doneCount": 0,
+      "totalCount": 30
     }
   ]
 }
