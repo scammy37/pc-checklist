@@ -17,13 +17,12 @@
   </div>
 
   <div class="card">
-    <h2>Start Checklist</h2>
     <label class="field-label" for="ticketInput">Enter Ticket Number</label>
     <input type="text" id="ticketInput" placeholder="e.g. 123">
     <div class="empty-note" id="ticketPreview"></div>
-    <div class="actions-row" style="margin-top:14px;">
+    <div class="actions-row" style="margin-top:14px; justify-content:flex-start;">
+      <button id="startBtn" type="button">Start Checklist</button>
       <span id="startError" class="error-note"></span>
-      <button id="startBtn" type="button">Start / open checklist</button>
     </div>
   </div>
 
@@ -248,7 +247,7 @@
       startError.textContent = e.message;
     } finally {
       btn.disabled = false;
-      btn.textContent = 'Start / open checklist';
+      btn.textContent = 'Start Checklist';
     }
   });
 
