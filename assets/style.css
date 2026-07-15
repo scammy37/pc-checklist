@@ -73,12 +73,13 @@ input[type="text"], input[type="email"], input[type="password"] {
   font-size: 0.95rem;
 }
 select {
-  padding: 8px 10px;
+  width: 100%;
+  padding: 9px 10px;
   border: 1px solid var(--border);
   border-radius: 6px;
   background: var(--bg);
   color: var(--text);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }

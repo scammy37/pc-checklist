@@ -11,13 +11,15 @@
   <h1>PC Checklist Dashboard</h1>
 
   <div class="card">
-    <label class="field-label" for="techName">Your name</label>
-    <input type="text" id="techName" placeholder="e.g. MZ">
+    <label class="field-label" for="techName">Agent</label>
+    <select id="techName">
+      <option value="">Select your name…</option>
+    </select>
   </div>
 
   <div class="card">
     <label class="field-label" for="ticketInput">Enter Ticket Number</label>
-    <input type="text" id="ticketInput" placeholder="e.g. 123">
+    <input type="text" id="ticketInput" placeholder="SR-XXXXXX">
     <div class="empty-note" id="ticketPreview"></div>
     <div class="actions-row" style="margin-top:14px; justify-content:flex-start;">
       <button id="startBtn" type="button">Start Checklist</button>
@@ -76,10 +78,17 @@
 
 <script src="assets/github-store.js"></script>
 <script src="assets/pc-deployment-items.js"></script>
+<script src="assets/staff.js"></script>
 <script>
   const techInput = document.getElementById('techName');
+  STAFF_NAMES.forEach((name) => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = name;
+    techInput.appendChild(opt);
+  });
   techInput.value = localStorage.getItem(PCStore.TECH_KEY) || '';
-  techInput.addEventListener('input', () => localStorage.setItem(PCStore.TECH_KEY, techInput.value));
+  techInput.addEventListener('change', () => localStorage.setItem(PCStore.TECH_KEY, techInput.value));
 
   const tokenInput = document.getElementById('tokenInput');
   const tokenStatus = document.getElementById('tokenStatus');
@@ -216,7 +225,7 @@
     const id = buildTicketId();
     ticketPreview.textContent = id ? `Will be saved as: ${id}` : '';
   }
-  techInput.addEventListener('input', updateTicketPreview);
+  techInput.addEventListener('change', updateTicketPreview);
   ticketInput.addEventListener('input', updateTicketPreview);
 
   document.getElementById('startBtn').addEventListener('click', async () => {

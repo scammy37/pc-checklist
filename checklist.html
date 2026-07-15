@@ -14,8 +14,10 @@
   <p class="print-only" id="printMeta"></p>
 
   <div class="card no-print">
-    <label class="field-label" for="techName">Your name (tech completing items)</label>
-    <input type="text" id="techName" placeholder="e.g. MZ">
+    <label class="field-label" for="techName">Agent</label>
+    <select id="techName">
+      <option value="">Select your name…</option>
+    </select>
   </div>
 
   <div class="card no-print">
@@ -51,13 +53,20 @@
 </div>
 
 <script src="assets/github-store.js"></script>
+<script src="assets/staff.js"></script>
 <script>
   const params = new URLSearchParams(window.location.search);
   const ticket = PCStore.sanitizeTicket(params.get('ticket') || '');
 
   const techInput = document.getElementById('techName');
+  STAFF_NAMES.forEach((name) => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = name;
+    techInput.appendChild(opt);
+  });
   techInput.value = localStorage.getItem(PCStore.TECH_KEY) || '';
-  techInput.addEventListener('input', () => localStorage.setItem(PCStore.TECH_KEY, techInput.value));
+  techInput.addEventListener('change', () => localStorage.setItem(PCStore.TECH_KEY, techInput.value));
 
   const checklistEl = document.getElementById('checklist');
   const progressFill = document.getElementById('progressFill');
