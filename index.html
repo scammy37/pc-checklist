@@ -79,6 +79,7 @@
 </div>
 
 <script src="assets/github-store.js"></script>
+<script src="assets/pc-deployment-items.js"></script>
 <script>
   const techInput = document.getElementById('techName');
   techInput.value = localStorage.getItem(PCStore.TECH_KEY) || '';
@@ -116,7 +117,7 @@
     left.appendChild(id);
     const sub = document.createElement('div');
     sub.className = 'ticket-sub';
-    sub.textContent = `${entry.doneCount || 0}/${entry.totalCount || 5} done · started by ${entry.createdBy || 'unknown'} · updated ${timeAgo(entry.updatedAt)}`;
+    sub.textContent = `${entry.doneCount || 0}/${entry.totalCount || PC_DEPLOYMENT_ITEMS.length} done · started by ${entry.createdBy || 'unknown'} · updated ${timeAgo(entry.updatedAt)}`;
     left.appendChild(sub);
     a.appendChild(left);
 
@@ -226,13 +227,7 @@
       const existing = await PCStore.loadChecklist(ticket);
       if (!existing) {
         const now = new Date().toISOString();
-        const defaultItems = [
-          { id: 1, text: 'Verify workstation powers on and OS boots successfully', done: false, by: null, at: null },
-          { id: 2, text: 'Confirm antivirus / endpoint protection is installed and up to date', done: false, by: null, at: null },
-          { id: 3, text: 'Test network connectivity (LAN and/or Wi-Fi)', done: false, by: null, at: null },
-          { id: 4, text: 'Verify all pending OS and driver updates are installed', done: false, by: null, at: null },
-          { id: 5, text: 'Confirm user data backup / profile migration completed', done: false, by: null, at: null },
-        ];
+        const defaultItems = PC_DEPLOYMENT_ITEMS.map((i) => ({ ...i, done: false, by: null, at: null }));
         await PCStore.saveChecklist(
           ticket,
           () => ({ ticket, createdBy: tech, createdAt: now, items: defaultItems }),
