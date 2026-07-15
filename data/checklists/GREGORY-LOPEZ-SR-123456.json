@@ -116,9 +116,9 @@
         "Reboot connected to Wi-Fi to verify you can login.",
         "Verify DA, ZN and AoVPN works as expected."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Lopez",
+      "at": "2026-07-15T22:43:24.535Z"
     },
     {
       "id": 10,
