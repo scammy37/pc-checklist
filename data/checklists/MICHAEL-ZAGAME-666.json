@@ -97,9 +97,9 @@
       "id": 12,
       "section": "Software",
       "text": "Schedule/Apply Patches — Create Qualys job per New PC Qualys Job procedure; run Commercial Vantage Lenovo updates",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:01:13.036Z"
     },
     {
       "id": 13,
