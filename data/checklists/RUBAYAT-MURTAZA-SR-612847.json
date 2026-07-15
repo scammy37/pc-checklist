@@ -341,9 +341,9 @@
       "steps": [
         "Verify time zone, keyboard layout, and language preferences."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Rubayat Murtaza",
+      "at": "2026-07-15T19:56:57.663Z"
     },
     {
       "id": 26,
