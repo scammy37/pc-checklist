@@ -48,9 +48,9 @@
       "steps": [
         "Verify device model, RAM, SSD size, and condition match the order."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "MZ",
+      "at": "2026-07-15T13:26:45.674Z"
     },
     {
       "id": 5,
