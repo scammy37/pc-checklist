@@ -237,9 +237,9 @@
       "section": "Close-out",
       "text": "Receive Old Laptop + Decom Form — Confirm old laptop returned, submit PSS Device Decommission form",
       "tag": "Replacement only",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Jay G",
+      "at": "2026-07-15T11:03:09.547Z"
     },
     {
       "id": 30,
