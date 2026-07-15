@@ -32,9 +32,6 @@
       <button type="button" class="sort-btn" data-sort="tech">Tech</button>
       <button type="button" class="sort-btn" data-sort="ticket">Ticket #</button>
     </div>
-    <div class="actions-row" style="margin-top:14px; justify-content:flex-end;">
-      <button class="secondary" id="refreshBtn" type="button">Refresh</button>
-    </div>
   </div>
 
   <div class="card">
@@ -185,7 +182,7 @@
 
   sortButtons.forEach((btn) => btn.addEventListener('click', () => {
     currentSort = btn.dataset.sort;
-    renderAll();
+    loadDashboard();
   }));
 
   async function loadDashboard() {
@@ -205,7 +202,6 @@
     }
   }
 
-  document.getElementById('refreshBtn').addEventListener('click', loadDashboard);
   window.addEventListener('focus', loadDashboard);
 
   const ticketInput = document.getElementById('ticketInput');

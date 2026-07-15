@@ -41,7 +41,7 @@ body {
   color: var(--text);
 }
 .wrap { max-width: 720px; margin: 0 auto; }
-h1 { font-size: 1.5rem; margin-bottom: 4px; }
+h1 { font-size: 2rem; margin-bottom: 4px; }
 .subtitle { color: var(--muted); margin-top: 0; margin-bottom: 20px; font-size: 0.9rem; }
 a { color: var(--accent); }
 
