@@ -105,9 +105,9 @@
       "id": 13,
       "section": "Security",
       "text": "BitLocker Encryption — Confirm enabled and recovery key is backed up in Active Directory",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:02:09.785Z"
     },
     {
       "id": 14,
