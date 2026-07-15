@@ -162,9 +162,9 @@
       "id": 20,
       "section": "User Setup",
       "text": "Okta Verify Setup — Verify Okta Verify desktop app and Intune certificate; enroll user",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:02:23.513Z"
     },
     {
       "id": 21,
