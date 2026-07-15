@@ -1,34 +1,169 @@
 // Canonical PC Deployment Checklist items, mirrored from the team's
 // "PC Deployment Checklist - Canned Response Instructions" doc.
+// Each item may have multiple `steps` (rendered as a numbered list when
+// there's more than one) and optional reference `links`.
 const PC_DEPLOYMENT_ITEMS = [
-  { id: 1, section: 'Pre-work', text: 'Preparation — Verify all required information is completed in the ticket' },
-  { id: 2, section: 'Pre-work', text: 'Data Backup — Advise user to backup data to OneDrive. For dead machines, recover files if possible', tag: 'Replacement only' },
-  { id: 3, section: 'Pre-work', text: 'Verify Installed Applications — Export software list from Lansweeper, send to user, flag unapproved software', tag: 'Replacement only' },
-  { id: 4, section: 'Hardware', text: 'Hardware Validation — Verify device model, RAM, SSD size, and condition match the order' },
-  { id: 5, section: 'Hardware', text: 'Physical Check — Power on and verify screen, keyboard, touchpad, and ports' },
-  { id: 6, section: 'Build', text: 'Create Computer Account — Run \'Create Computer Account\' script from IT Tools folder on desktop' },
-  { id: 7, section: 'Build', text: 'Image Laptop — Set BIOS password to pssit25, then image the laptop per SCCM Image Deployment Guide' },
-  { id: 8, section: 'Build', text: 'AD Move / GP Update — Move to correct OU, login as adm, set sleep to Never (plugged in), run gpupdate /force, reboot' },
-  { id: 9, section: 'Build', text: 'Connect to Guest Wi-Fi — Connect, reboot to verify login, confirm DA / ZN / AoVPN works' },
-  { id: 10, section: 'Software', text: 'Install Company Software — Verify all PSS-supported practice apps per Combined PC Build Checklist' },
-  { id: 11, section: 'Software', text: 'Install Practice-Specific Software — MGALFA, Python, Excel Add-Ins, etc. per Combined PC Build Checklist' },
-  { id: 12, section: 'Software', text: 'Schedule/Apply Patches — Create Qualys job per New PC Qualys Job procedure; run Commercial Vantage Lenovo updates' },
-  { id: 13, section: 'Security', text: 'BitLocker Encryption — Confirm enabled and recovery key is backed up in Active Directory' },
-  { id: 14, section: 'Security', text: 'MessageSave Settings Restore — Follow \'MessageSave – Restore User Settings\' procedure', tag: 'Replacement only' },
-  { id: 15, section: 'Security', text: 'Verify Local Admin Setup — Confirm \'Corp IT\' local admin account configured per policy' },
-  { id: 16, section: 'QA', text: 'Verify Proper Software Installed — Confirm all required software is present' },
-  { id: 17, section: 'QA', text: 'Device Manager Review — Verify no device errors or missing drivers' },
-  { id: 18, section: 'QA', text: 'Confirm DirectAccess / Zero Network / Zscaler — All three verified working' },
-  { id: 19, section: 'User Setup', text: 'Account Setup — New user: sign in as user. Existing user: hand off / start Bomgar session if remote' },
-  { id: 20, section: 'User Setup', text: 'Okta Verify Setup — Verify Okta Verify desktop app and Intune certificate; enroll user' },
-  { id: 21, section: 'User Setup', text: 'Defender / Antivirus Check — Verify Microsoft Defender or TrendMicro is active and up to date' },
-  { id: 22, section: 'User Setup', text: 'Verify Lansweeper Entry — Validate new laptop details collected; update LS Agent group if needed' },
-  { id: 23, section: 'User Setup', text: 'Outlook Configuration — Follow \'Outlook – New User Setup\' procedure' },
-  { id: 24, section: 'User Setup', text: 'Log In to Key Applications — Okta, Outlook, Teams, OneDrive' },
-  { id: 25, section: 'User Setup', text: 'Regional Settings — Verify time zone, keyboard layout, and language preferences' },
-  { id: 26, section: 'User Setup', text: 'Validate Printer — Verify printers installed/mapped correctly', tag: 'N/A for remote users' },
-  { id: 27, section: 'User Setup', text: 'Philly Users Only — Add NAC Groups (email chichd@milliman.com), disable credential guard, reboot', tag: 'Philly only' },
-  { id: 28, section: 'Close-out', text: 'Post-Onboarding Review — Add 1-week follow-up reminder to verify system performance and access' },
-  { id: 29, section: 'Close-out', text: 'Receive Old Laptop + Decom Form — Confirm old laptop returned, submit PSS Device Decommission form', tag: 'Replacement only' },
-  { id: 30, section: 'Close-out', text: 'Ticket Closure — Verify all items complete, close ticket' },
+  {
+    id: 1, section: 'Pre-work', title: 'Preparation',
+    steps: ['Verify all required information is completed in the ticket.'],
+  },
+  {
+    id: 2, section: 'Pre-work', title: 'Data Backup', tag: 'Replacement only',
+    steps: ['Advise user to backup their data to OneDrive. For dead machines, try to get the files if possible.'],
+  },
+  {
+    id: 3, section: 'Pre-work', title: 'Verify Installed Applications', tag: 'Replacement only',
+    steps: [
+      'Export installed software list from Lansweeper.',
+      'Send list to user to confirm which non-standard apps are still needed.',
+      'Review and flag unapproved software.',
+      'Discuss all non-standard software with the user before reinstalling.',
+    ],
+  },
+  {
+    id: 4, section: 'Hardware', title: 'Hardware Validation',
+    steps: ['Verify device model, RAM, SSD size, and condition match the order.'],
+  },
+  {
+    id: 5, section: 'Hardware', title: 'Physical Check',
+    steps: ['Power on the laptop and perform a basic hardware check (screen, keyboard, touchpad, ports).'],
+  },
+  {
+    id: 6, section: 'Build', title: 'Create Computer Account',
+    steps: ['Create the computer in AD using the "Create Computer Account" script in the IT Tools folder on your desktop.'],
+  },
+  {
+    id: 7, section: 'Build', title: 'Image Laptop',
+    steps: ['Set BIOS password to pssit25.', 'Image the laptop.'],
+    links: [{ label: 'SCCM Image Deployment Guide', url: 'https://milliman.sharepoint.com/:w:/r/teams/GCSPracticeSupportServices/Documentation%20Library/__PSS%20-%20Combined%20Documents/SCCM/Procedure%20-%20SCCM%20PC%20Image%20Deployment.docx?d=w6cd0a14b440d4282a47c9d89dee6d0aa&csf=1&web=1&e=SZ7Y7L' }],
+  },
+  {
+    id: 8, section: 'Build', title: 'AD Move / GP Update',
+    steps: [
+      'Move computer into the correct OU.',
+      'Login to computer as adm.',
+      'Verify sleep setting is set to Never when plugged in.',
+      'Run gpupdate /force to apply GPO.',
+      'Reboot laptop.',
+    ],
+  },
+  {
+    id: 9, section: 'Build', title: 'Connect to Guest Wi-Fi',
+    steps: [
+      'Connect to guest Wi-Fi.',
+      'Reboot connected to Wi-Fi to verify you can login.',
+      'Verify DA, ZN and AoVPN works as expected.',
+    ],
+  },
+  {
+    id: 10, section: 'Software', title: 'Install Company Software and Applications',
+    steps: ['Verify the installation of software and applications for all PSS supported practices. These applications should be installed once you move the PC to the correct OU.'],
+    links: [{ label: 'Combined PC Build Checklists (Modified)', url: 'https://milliman.sharepoint.com/:x:/r/teams/GCSPracticeSupportServices/Shared%20Documents/General/PC%20Checklists/Combined_PC_Build_Checklists_Modified.xlsx?d=w609ccf560dd445ff9ed7b5add738832a&csf=1&web=1&e=hOZ6rt' }],
+  },
+  {
+    id: 11, section: 'Software', title: 'Install Practice-Specific Software and Applications',
+    steps: ['Verify practice-specific software and applications are installed (MGALFA, Python, Excel Add-Ins, etc.). This should be complete once the PC is moved into the practice OU.'],
+    links: [{ label: 'Combined PC Build Checklists (Modified)', url: 'https://milliman.sharepoint.com/:x:/r/teams/GCSPracticeSupportServices/Shared%20Documents/General/PC%20Checklists/Combined_PC_Build_Checklists_Modified.xlsx?d=w609ccf560dd445ff9ed7b5add738832a&csf=1&web=1&e=hOZ6rt' }],
+  },
+  {
+    id: 12, section: 'Software', title: 'Schedule/Apply Patches',
+    steps: ['Schedule a patch job per the "New PC Qualys Job" procedure.', 'Run Commercial Vantage Lenovo updates.'],
+    links: [{ label: 'Procedure - New PC Qualys Job', url: 'https://milliman.sharepoint.com/:w:/r/teams/GCSPracticeSupportServices/Documentation%20Library/__PSS%20-%20Combined%20Documents/PC%20Deployment/Procedure%20-%20New%20PC%20Qualys%20Job.docx?d=w20cc4f675a954179a3b35cfea2662b67&csf=1&web=1&e=cjOkMr' }],
+  },
+  {
+    id: 13, section: 'Security', title: 'BitLocker Encryption',
+    steps: ['Ensure BitLocker is enabled, and recovery key is backed up in Active Directory.'],
+  },
+  {
+    id: 14, section: 'Security', title: 'Restore MessageSave Settings', tag: 'Replacement only',
+    steps: ['Follow the "MessageSave - Restore User Settings" procedure.'],
+  },
+  {
+    id: 15, section: 'Security', title: 'Verify Local Admin Setup',
+    steps: ['Ensure local admin credentials are configured according to policy. The local admin account is "Corp IT".'],
+  },
+  {
+    id: 16, section: 'QA', title: 'Verify Proper Software Installed',
+    steps: ['Confirm that all required software has been installed.'],
+  },
+  {
+    id: 17, section: 'QA', title: 'Device Manager Review',
+    steps: ['Verify there are no device errors or missing drivers.'],
+  },
+  {
+    id: 18, section: 'QA', title: 'Confirm DirectAccess / Zero Network / Zscaler',
+    steps: [
+      'Confirm DirectAccess is working properly.',
+      'Confirm Zero Network is working properly.',
+      'Confirm Zscaler is working properly.',
+    ],
+  },
+  {
+    id: 19, section: 'User Setup', title: 'Account Setup',
+    steps: [
+      '(New user) Sign in as the user.',
+      '(Existing user) Hand/mail the new laptop off to the user and have them sign in. If local setup, configure the machine; if remote, have the user sign in and start a Bomgar session with you.',
+    ],
+  },
+  {
+    id: 20, section: 'User Setup', title: 'Okta Verify Setup',
+    steps: [
+      '(New user) Verify Okta Verify desktop app and Intune certificate installed, then enroll user.',
+      'Verify user has Okta Verify desktop application and Intune certificate installed.',
+      'Enroll user into the Okta Verify Desktop application.',
+      '(Existing user) Coordinate Okta Verify setup with user depending on whether the mobile app is installed.',
+    ],
+    links: [
+      { label: 'Okta Verify / Intune cert reference', url: 'https://hd.milliman.com/support/solutions/folders/14000043789' },
+      { label: 'Enroll in Okta Verify Desktop', url: 'https://hd.milliman.com/support/solutions/articles/14000050535' },
+    ],
+  },
+  {
+    id: 21, section: 'User Setup', title: 'Defender / Antivirus Check',
+    steps: ['Verify Microsoft Defender or TrendMicro is active and up to date.'],
+  },
+  {
+    id: 22, section: 'User Setup', title: 'Verify Lansweeper Entry',
+    steps: ['Validate that Lansweeper collected the new laptop details.', 'Update Lansweeper group (LS Agent) if required.'],
+    links: [{ label: 'Lansweeper', url: 'https://denv-security.milliman.com:84/Default.aspx' }],
+  },
+  {
+    id: 23, section: 'User Setup', title: 'Outlook Configuration',
+    steps: ['Follow the "Outlook - New User Setup" procedure.'],
+    links: [{ label: 'Outlook - New User Setup', url: 'https://milliman.sharepoint.com/sites/NYMetroIS/Policies%20and%20Procedures/Forms/AllItems.aspx?viewid=397dac8f%2Df893%2D4dd0%2Db25a%2D8d5a699575ac&id=%2Fsites%2FNYMetroIS%2FPolicies%20and%20Procedures%2FOutlook%2C%20Mail%20files%2C%20and%20Add%2Dins' }],
+  },
+  {
+    id: 24, section: 'User Setup', title: 'Log In to Key Applications',
+    steps: ['Register the account on the computer (Okta, Outlook, Teams, OneDrive).'],
+  },
+  {
+    id: 25, section: 'User Setup', title: 'Regional Settings',
+    steps: ['Verify time zone, keyboard layout, and language preferences.'],
+  },
+  {
+    id: 26, section: 'User Setup', title: 'Validate Printer', tag: 'N/A for remote users',
+    steps: ['Verify that printers have been correctly installed/mapped.'],
+  },
+  {
+    id: 27, section: 'User Setup', title: 'Philly Users Only: Add NAC Groups', tag: 'Philly only',
+    steps: [
+      'Email chichd@milliman.com with the username and/or computer name, asking them to add "Chic Users NAC" and "Chic Computers NAC" groups to the user and/or computer account.',
+      'Disable credential guard: run \\\\newy-sccmdp-01\\NYM Packages\\Windows\\Disabling Windows Defender Credential Guard as admin.',
+      'Reboot the computer and agree to disable credential guard at boot up.',
+    ],
+    links: [{ label: 'Email Chicago NAC team', url: 'mailto:chichd@milliman.com' }],
+  },
+  {
+    id: 28, section: 'Close-out', title: 'Post-Onboarding Review',
+    steps: ['Add a follow-up reminder (after 1 week) to verify system performance and access.'],
+  },
+  {
+    id: 29, section: 'Close-out', title: 'Receive Old Laptop', tag: 'Replacement only',
+    steps: ['Verify old laptop has been returned.', 'Complete the PSS - Device Decommission / Non-active Milliman Helpdesk form.'],
+    links: [{ label: 'PSS - Device Decommission form', url: 'https://hd.milliman.com/support/catalog/items/201' }],
+  },
+  {
+    id: 30, section: 'Close-out', title: 'Ticket Closure',
+    steps: ['Verify all items above have been completed.', 'Close the ticket.'],
+  },
 ];

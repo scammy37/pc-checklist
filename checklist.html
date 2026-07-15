@@ -89,15 +89,45 @@
 
       const main = document.createElement('div');
       main.className = 'item-main';
-      const text = document.createElement('div');
-      text.className = 'item-text';
-      text.textContent = item.text;
-      main.appendChild(text);
+      const title = document.createElement('div');
+      title.className = 'item-text';
+      title.textContent = item.title;
+      main.appendChild(title);
       if (item.tag) {
         const tag = document.createElement('span');
         tag.className = 'item-tag';
         tag.textContent = item.tag;
         main.appendChild(tag);
+      }
+      if (item.steps && item.steps.length) {
+        if (item.steps.length === 1) {
+          const step = document.createElement('div');
+          step.className = 'item-step';
+          step.textContent = item.steps[0];
+          main.appendChild(step);
+        } else {
+          const list = document.createElement('ol');
+          list.className = 'item-steps';
+          item.steps.forEach((s) => {
+            const li2 = document.createElement('li');
+            li2.textContent = s;
+            list.appendChild(li2);
+          });
+          main.appendChild(list);
+        }
+      }
+      if (item.links && item.links.length) {
+        const linksRow = document.createElement('div');
+        linksRow.className = 'item-links';
+        item.links.forEach((link) => {
+          const a = document.createElement('a');
+          a.href = link.url;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = link.label;
+          linksRow.appendChild(a);
+        });
+        main.appendChild(linksRow);
       }
       const meta = document.createElement('div');
       meta.className = 'item-meta';
@@ -202,8 +232,9 @@
         lastSection = item.section;
       }
       const stamp = item.done ? `[${item.by} ${formatTime(item.at)}]` : '[          ]';
-      const shortText = item.text.split('—')[0].trim();
-      lines.push(`${stamp} ${shortText}${item.tag ? ' (' + item.tag + ')' : ''}`);
+      lines.push(`${stamp} ${item.title}${item.tag ? ' (' + item.tag + ')' : ''}`);
+      (item.steps || []).forEach((s) => lines.push(`      - ${s}`));
+      (item.links || []).forEach((l) => lines.push(`      ${l.label}: ${l.url}`));
     });
     lines.push('');
     const doneCount = data.items.filter((i) => i.done).length;
@@ -226,7 +257,7 @@
     if (!data) return;
     const subject = `PC Checklist Completed — ${ticket}`;
     const lines = data.items.map((item, idx) =>
-      `${idx + 1}. ${item.text}\n   Completed by: ${item.by} on ${formatTime(item.at)}`
+      `${idx + 1}. ${item.title}\n   Completed by: ${item.by} on ${formatTime(item.at)}`
     );
     const body = `The following PC checklist (${ticket}) has been completed:\n\n${lines.join('\n\n')}`;
     window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;

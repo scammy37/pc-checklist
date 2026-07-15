@@ -114,6 +114,11 @@ ul.checklist, ul.ticket-list { list-style: none; margin: 0; padding: 0; }
   border-radius: 4px;
   padding: 1px 7px;
 }
+.item-step { margin-top: 6px; font-size: 0.86rem; color: var(--muted); line-height: 1.45; }
+.item-steps { margin: 6px 0 0; padding-left: 18px; font-size: 0.86rem; color: var(--muted); line-height: 1.55; }
+.item-steps li { margin-bottom: 2px; }
+.item-links { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 12px; }
+.item-links a { font-size: 0.8rem; }
 
 .ticket-row {
   display: flex;
