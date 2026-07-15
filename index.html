@@ -37,9 +37,9 @@
   </div>
 
   <div class="card">
-    <h2 style="margin:0 0 14px;">In progress</h2>
+    <h2 style="margin:0 0 14px;">In Progress</h2>
     <ul class="ticket-list" id="inProgressList"></ul>
-    <div class="empty-note" id="inProgressEmpty" style="display:none;">Nothing in progress right now.</div>
+    <div class="empty-note" id="inProgressEmpty" style="display:none;">Nothing in Progress right now.</div>
   </div>
 
   <div class="card">
@@ -128,7 +128,7 @@
 
     const badge = document.createElement('span');
     badge.className = 'badge ' + (entry.status === 'completed' ? 'completed' : 'in-progress');
-    badge.textContent = entry.status === 'completed' ? 'Completed' : 'In progress';
+    badge.textContent = entry.status === 'completed' ? 'Completed' : 'In Progress';
     a.appendChild(badge);
 
     return a;
@@ -202,7 +202,7 @@
       cached.inProgress = checklists.filter((c) => c.status !== 'completed');
       cached.completed = checklists.filter((c) => c.status === 'completed');
       renderAll();
-      statusNote.textContent = `Last refreshed ${new Date().toLocaleTimeString()}.`;
+      statusNote.textContent = `Last refreshed ${new Date().toLocaleString()}.`;
     } catch (e) {
       statusNote.textContent = '';
       startError.textContent = '';

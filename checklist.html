@@ -185,7 +185,7 @@
       }
       loadError.textContent = '';
       const counts = render(data);
-      statusNote.textContent = `Last refreshed ${new Date().toLocaleTimeString()}.`;
+      statusNote.textContent = `Last refreshed ${new Date().toLocaleString()}.`;
       return counts;
     } catch (e) {
       loadError.textContent = `Could not load checklist: ${e.message}`;
@@ -223,7 +223,7 @@
         totalCount: counts.total,
         status: counts.doneCount === counts.total ? 'completed' : 'in_progress',
       });
-      statusNote.textContent = `Saved. Last refreshed ${new Date().toLocaleTimeString()}.`;
+      statusNote.textContent = `Saved. Last refreshed ${new Date().toLocaleString()}.`;
     } catch (e) {
       statusNote.textContent = `Could not save: ${e.message}`;
       await loadAndRender();

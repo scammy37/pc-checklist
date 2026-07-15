@@ -56,7 +56,7 @@ a { color: var(--accent); }
 
 label.field-label {
   display: block;
-  font-size: 0.8rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--text);
   text-transform: uppercase;
@@ -190,7 +190,7 @@ button.secondary:hover { background: var(--border); color: var(--text); }
 .error-note { font-size: 0.85rem; color: var(--error-text); padding: 6px 2px; }
 .footnote { font-size: 0.78rem; color: var(--muted); margin-top: 18px; line-height: 1.4; }
 
-details.settings summary { cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+details.settings summary { cursor: pointer; font-weight: 700; font-size: 1.05rem; }
 details.settings { margin-top: 4px; }
 details.settings p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
 
