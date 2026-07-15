@@ -59,9 +59,9 @@
       "steps": [
         "Power on the laptop and perform a basic hardware check (screen, keyboard, touchpad, ports)."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Rubayat Murtaza",
+      "at": "2026-07-15T19:56:16.103Z"
     },
     {
       "id": 6,
