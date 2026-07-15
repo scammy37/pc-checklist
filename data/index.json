@@ -26,6 +26,15 @@
       "updatedAt": "2026-07-15T20:27:46.675Z",
       "doneCount": 0,
       "totalCount": 30
+    },
+    {
+      "ticket": "CHRIS-BURTON-987654321",
+      "status": "in_progress",
+      "createdBy": "Chris Burton",
+      "createdAt": "2026-07-15T21:41:23.020Z",
+      "updatedAt": "2026-07-15T21:41:23.020Z",
+      "doneCount": 0,
+      "totalCount": 30
     }
   ]
 }
