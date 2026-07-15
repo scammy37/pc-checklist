@@ -59,8 +59,6 @@ label.field-label {
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--text);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
   margin-bottom: 6px;
 }
 input[type="text"], input[type="email"], input[type="password"] {
