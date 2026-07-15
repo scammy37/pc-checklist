@@ -178,9 +178,9 @@
       "id": 22,
       "section": "User Setup",
       "text": "Verify Lansweeper Entry — Validate new laptop details collected; update LS Agent group if needed",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:02:32.288Z"
     },
     {
       "id": 23,
