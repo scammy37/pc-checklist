@@ -220,9 +220,9 @@
       "section": "User Setup",
       "text": "Philly Users Only — Add NAC Groups (email chichd@milliman.com), disable credential guard, reboot",
       "tag": "Philly only",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Jay G",
+      "at": "2026-07-15T11:03:05.699Z"
     },
     {
       "id": 28,
