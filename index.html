@@ -132,9 +132,8 @@
     return a;
   }
 
-  const SORT_KEY = 'pcChecklistSortBy';
   const sortButtons = document.querySelectorAll('.sort-btn');
-  let currentSort = localStorage.getItem(SORT_KEY) || 'recent';
+  let currentSort = 'recent';
 
   function setActiveSortButton() {
     sortButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.sort === currentSort));
@@ -179,7 +178,6 @@
   }
 
   function renderAll() {
-    localStorage.setItem(SORT_KEY, currentSort);
     setActiveSortButton();
     renderList(inProgressList, cached.inProgress, currentSort);
     renderList(completedList, cached.completed, currentSort);
