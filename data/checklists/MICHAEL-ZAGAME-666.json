@@ -57,9 +57,9 @@
       "id": 7,
       "section": "Build",
       "text": "Image Laptop — Set BIOS password to pssit25, then image the laptop per SCCM Image Deployment Guide",
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-15T11:01:11.320Z"
     },
     {
       "id": 8,
