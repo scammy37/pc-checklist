@@ -415,9 +415,9 @@
         "Verify all items above have been completed.",
         "Close the ticket."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-16T14:51:09.467Z"
     }
   ]
 }
