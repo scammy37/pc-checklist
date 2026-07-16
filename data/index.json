@@ -38,11 +38,11 @@
     },
     {
       "ticket": "HEATHER-IRIAS-SR-245678",
-      "status": "in_progress",
+      "status": "completed",
       "createdBy": "Heather Irias",
       "createdAt": "2026-07-16T13:21:05.890Z",
-      "updatedAt": "2026-07-16T13:23:04.164Z",
-      "doneCount": 29,
+      "updatedAt": "2026-07-16T13:23:07.924Z",
+      "doneCount": 30,
       "totalCount": 30
     }
   ]
