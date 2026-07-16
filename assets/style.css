@@ -193,6 +193,19 @@ button.secondary:hover { background: var(--border); color: var(--text); }
 .sort-btn:hover { background: var(--border); color: var(--text); }
 .sort-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
+.sort-buttons.small .sort-btn { padding: 5px 10px; font-size: 0.78rem; flex: none; }
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.section-header-row h2 { margin: 0; }
+.section-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
 .empty-note { font-size: 0.85rem; color: var(--muted); padding: 6px 2px; }
 .error-note { font-size: 0.85rem; color: var(--error-text); padding: 6px 2px; }
 .footnote { font-size: 0.78rem; color: var(--muted); margin-top: 18px; line-height: 1.4; }

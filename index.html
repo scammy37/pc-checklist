@@ -29,25 +29,37 @@
         <span id="startError" class="error-note"></span>
       </div>
 
-      <div class="top-col">
-        <label class="field-label">Sort</label>
-        <div class="sort-buttons" id="sortButtons">
-          <button type="button" class="sort-btn" data-sort="recent">Recent</button>
-          <button type="button" class="sort-btn" data-sort="tech">Agent</button>
-          <button type="button" class="sort-btn" data-sort="ticket">Ticket #</button>
-        </div>
-      </div>
     </div>
   </div>
 
   <div class="card">
-    <h2 style="margin:0 0 14px;">In Progress</h2>
+    <div class="section-header-row">
+      <h2>In Progress</h2>
+      <div class="section-controls">
+        <div class="sort-buttons small" data-section="inProgress">
+          <button type="button" class="sort-btn" data-sort="recent">Recent</button>
+          <button type="button" class="sort-btn" data-sort="tech">Agent</button>
+          <button type="button" class="sort-btn" data-sort="ticket">Ticket #</button>
+        </div>
+        <button class="secondary" type="button" id="inProgressToggleAllBtn">Collapse All</button>
+      </div>
+    </div>
     <ul class="ticket-list" id="inProgressList"></ul>
     <div class="empty-note" id="inProgressEmpty" style="display:none;">Nothing in Progress right now.</div>
   </div>
 
   <div class="card">
-    <h2>Completed</h2>
+    <div class="section-header-row">
+      <h2>Completed</h2>
+      <div class="section-controls">
+        <div class="sort-buttons small" data-section="completed">
+          <button type="button" class="sort-btn" data-sort="recent">Recent</button>
+          <button type="button" class="sort-btn" data-sort="tech">Agent</button>
+          <button type="button" class="sort-btn" data-sort="ticket">Ticket #</button>
+        </div>
+        <button class="secondary" type="button" id="completedToggleAllBtn">Collapse All</button>
+      </div>
+    </div>
     <ul class="ticket-list" id="completedList"></ul>
     <div class="empty-note" id="completedEmpty" style="display:none;">No completed checklists yet.</div>
   </div>
@@ -136,13 +148,23 @@
     return a;
   }
 
-  const sortButtons = document.querySelectorAll('.sort-btn');
-  let currentSort = 'tech';
+  const sortState = { inProgress: 'tech', completed: 'tech' };
+  const sectionExpandDefault = { inProgress: true, completed: false };
 
-  function setActiveSortButton() {
-    sortButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.sort === currentSort));
+  function setActiveSortButtons() {
+    document.querySelectorAll('.sort-buttons[data-section]').forEach((group) => {
+      const section = group.dataset.section;
+      group.querySelectorAll('.sort-btn').forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.sort === sortState[section]);
+      });
+    });
   }
-  setActiveSortButton();
+
+  function updateToggleAllLabel(sectionKey) {
+    const btn = document.getElementById(sectionKey + 'ToggleAllBtn');
+    btn.style.display = sortState[sectionKey] === 'tech' ? '' : 'none';
+    btn.textContent = sectionExpandDefault[sectionKey] ? 'Collapse All' : 'Expand All';
+  }
 
   const inProgressList = document.getElementById('inProgressList');
   const completedList = document.getElementById('completedList');
@@ -151,11 +173,18 @@
   const groupExpanded = {};
   function isGroupExpanded(sectionKey, agent) {
     const key = sectionKey + '::' + agent;
-    if (!(key in groupExpanded)) groupExpanded[key] = sectionKey === 'inProgress';
+    if (!(key in groupExpanded)) groupExpanded[key] = sectionExpandDefault[sectionKey];
     return groupExpanded[key];
   }
   function toggleGroupExpanded(sectionKey, agent) {
     groupExpanded[sectionKey + '::' + agent] = !isGroupExpanded(sectionKey, agent);
+    renderAll();
+  }
+  function setSectionExpandAll(sectionKey, expanded) {
+    Object.keys(groupExpanded).forEach((key) => {
+      if (key.startsWith(sectionKey + '::')) groupExpanded[key] = expanded;
+    });
+    sectionExpandDefault[sectionKey] = expanded;
     renderAll();
   }
 
@@ -198,17 +227,28 @@
   }
 
   function renderAll() {
-    setActiveSortButton();
-    renderList(inProgressList, cached.inProgress, currentSort, 'inProgress');
-    renderList(completedList, cached.completed, currentSort, 'completed');
+    setActiveSortButtons();
+    updateToggleAllLabel('inProgress');
+    updateToggleAllLabel('completed');
+    renderList(inProgressList, cached.inProgress, sortState.inProgress, 'inProgress');
+    renderList(completedList, cached.completed, sortState.completed, 'completed');
     document.getElementById('inProgressEmpty').style.display = cached.inProgress.length ? 'none' : 'block';
     document.getElementById('completedEmpty').style.display = cached.completed.length ? 'none' : 'block';
   }
 
-  sortButtons.forEach((btn) => btn.addEventListener('click', () => {
-    currentSort = btn.dataset.sort;
-    loadDashboard();
-  }));
+  document.querySelectorAll('.sort-buttons[data-section] .sort-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const section = btn.closest('.sort-buttons[data-section]').dataset.section;
+      sortState[section] = btn.dataset.sort;
+      loadDashboard();
+    });
+  });
+
+  ['inProgress', 'completed'].forEach((section) => {
+    document.getElementById(section + 'ToggleAllBtn').addEventListener('click', () => {
+      setSectionExpandAll(section, !sectionExpandDefault[section]);
+    });
+  });
 
   async function loadDashboard() {
     statusNote.textContent = 'Loading checklists from GitHub…';
