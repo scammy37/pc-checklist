@@ -59,9 +59,9 @@
       "steps": [
         "Power on the laptop and perform a basic hardware check (screen, keyboard, touchpad, ports)."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Heather Irias",
+      "at": "2026-07-16T16:45:47.392Z"
     },
     {
       "id": 6,
