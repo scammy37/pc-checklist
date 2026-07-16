@@ -190,6 +190,15 @@ button.secondary:hover { background: var(--border); color: var(--text); }
 .error-note { font-size: 0.85rem; color: var(--error-text); padding: 6px 2px; }
 .footnote { font-size: 0.78rem; color: var(--muted); margin-top: 18px; line-height: 1.4; }
 
+.all-checklists-link {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 16px;
+}
+.all-checklists-link:last-child { margin: 18px 0 0; }
+
 details.settings summary { cursor: pointer; font-weight: 700; font-size: 1.05rem; }
 details.settings { margin-top: 4px; }
 details.settings p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
