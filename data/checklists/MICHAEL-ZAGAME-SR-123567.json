@@ -224,9 +224,9 @@
       "steps": [
         "Verify there are no device errors or missing drivers."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-16T18:33:17.268Z"
     },
     {
       "id": 18,
