@@ -103,9 +103,9 @@
         "Run gpupdate /force to apply GPO.",
         "Reboot laptop."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Heather Irias",
+      "at": "2026-07-16T13:22:06.651Z"
     },
     {
       "id": 9,
