@@ -40,7 +40,7 @@ body {
   background: var(--bg);
   color: var(--text);
 }
-.wrap { max-width: 720px; margin: 0 auto; }
+.wrap { max-width: 960px; margin: 0 auto; }
 h1 { font-size: 2rem; margin-bottom: 4px; }
 .subtitle { color: var(--muted); margin-top: 0; margin-bottom: 20px; font-size: 0.9rem; }
 a { color: var(--accent); }
@@ -53,6 +53,9 @@ a { color: var(--accent); }
   margin-bottom: 16px;
 }
 .card h2 { font-size: 1.05rem; margin-top: 0; margin-bottom: 14px; }
+
+.top-row { display: flex; gap: 24px; flex-wrap: wrap; }
+.top-col { flex: 1; min-width: 220px; }
 
 label.field-label {
   display: block;
@@ -149,7 +152,7 @@ ul.checklist, ul.ticket-list { list-style: none; margin: 0; padding: 0; }
 .group-header {
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--muted);
+  color: var(--text);
   text-transform: uppercase;
   letter-spacing: 0.03em;
   margin: 16px 0 6px;

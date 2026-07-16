@@ -8,32 +8,35 @@
 </head>
 <body>
 <div class="wrap">
-  <p class="all-checklists-link"><a href="index.html">&larr; All checklists</a></p>
   <h1>PC Deployment Dashboard</h1>
 
   <div class="card">
-    <label class="field-label" for="techName">Agent</label>
-    <select id="techName">
-      <option value="">Select your name…</option>
-    </select>
-  </div>
+    <div class="top-row">
+      <div class="top-col">
+        <label class="field-label" for="techName">Agent</label>
+        <select id="techName">
+          <option value="">Select your name…</option>
+        </select>
+      </div>
 
-  <div class="card">
-    <label class="field-label" for="ticketInput">Ticket #</label>
-    <input type="text" id="ticketInput" placeholder="SR-XXXXXX">
-    <div class="empty-note" id="ticketPreview"></div>
-    <div class="actions-row" style="margin-top:14px; justify-content:flex-start;">
-      <button id="startBtn" type="button">Start Checklist</button>
-      <span id="startError" class="error-note"></span>
-    </div>
-  </div>
+      <div class="top-col">
+        <label class="field-label" for="ticketInput">Ticket #</label>
+        <input type="text" id="ticketInput" placeholder="SR-XXXXXX">
+        <div class="empty-note" id="ticketPreview"></div>
+        <div class="actions-row" style="margin-top:14px; justify-content:flex-start;">
+          <button id="startBtn" type="button">Start Checklist</button>
+          <span id="startError" class="error-note"></span>
+        </div>
+      </div>
 
-  <div class="card">
-    <label class="field-label">Sort</label>
-    <div class="sort-buttons" id="sortButtons">
-      <button type="button" class="sort-btn" data-sort="recent">Recent</button>
-      <button type="button" class="sort-btn" data-sort="tech">Agent</button>
-      <button type="button" class="sort-btn" data-sort="ticket">Ticket #</button>
+      <div class="top-col">
+        <label class="field-label">Sort</label>
+        <div class="sort-buttons" id="sortButtons">
+          <button type="button" class="sort-btn" data-sort="recent">Recent</button>
+          <button type="button" class="sort-btn" data-sort="tech">Agent</button>
+          <button type="button" class="sort-btn" data-sort="ticket">Ticket #</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -75,7 +78,6 @@
     If that's not acceptable for your data, switch the repo to private in GitHub settings &mdash; the app works the
     same way, but reads will then also require a token.
   </p>
-  <p class="all-checklists-link"><a href="index.html">&larr; All checklists</a></p>
 </div>
 
 <script src="assets/github-store.js"></script>
