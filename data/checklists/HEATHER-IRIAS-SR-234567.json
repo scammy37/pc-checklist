@@ -48,9 +48,9 @@
       "steps": [
         "Verify device model, RAM, SSD size, and condition match the order."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Heather Irias",
+      "at": "2026-07-16T16:45:44.784Z"
     },
     {
       "id": 5,
