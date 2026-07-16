@@ -22,9 +22,9 @@
       "steps": [
         "Advise user to backup their data to OneDrive. For dead machines, try to get the files if possible."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Heather Irias",
+      "at": "2026-07-16T13:21:22.162Z"
     },
     {
       "id": 3,
