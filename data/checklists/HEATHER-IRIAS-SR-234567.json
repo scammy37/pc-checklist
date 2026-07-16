@@ -10,9 +10,9 @@
       "steps": [
         "Verify all required information is completed in the ticket."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Heather Irias",
+      "at": "2026-07-16T14:34:23.415Z"
     },
     {
       "id": 2,
