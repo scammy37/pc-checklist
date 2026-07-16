@@ -124,7 +124,7 @@
     return new Date(iso).toLocaleString();
   }
 
-  function renderTicketRow(entry) {
+  function renderTicketRow(entry, hideAgent) {
     const a = document.createElement('a');
     a.className = 'ticket-row' + (entry.status === 'completed' ? ' completed' : '');
     a.href = `checklist.html?ticket=${encodeURIComponent(entry.ticket)}`;
@@ -136,7 +136,10 @@
     left.appendChild(id);
     const sub = document.createElement('div');
     sub.className = 'ticket-sub';
-    sub.textContent = `${entry.doneCount || 0}/${entry.totalCount || PC_DEPLOYMENT_ITEMS.length} done · started by ${entry.createdBy || 'unknown'} · updated ${timeAgo(entry.updatedAt)}`;
+    const doneCount = `${entry.doneCount || 0}/${entry.totalCount || PC_DEPLOYMENT_ITEMS.length} done`;
+    const startedBy = `started by ${entry.createdBy || 'unknown'}`;
+    const updated = `updated ${timeAgo(entry.updatedAt)}`;
+    sub.textContent = [doneCount, ...(hideAgent ? [] : [startedBy]), updated].join(' · ');
     left.appendChild(sub);
     a.appendChild(left);
 
@@ -210,7 +213,7 @@
         header.addEventListener('click', () => toggleGroupExpanded(sectionKey, tech));
         container.appendChild(header);
         if (expanded) {
-          groupEntries.forEach((entry) => container.appendChild(renderTicketRow(entry)));
+          groupEntries.forEach((entry) => container.appendChild(renderTicketRow(entry, true)));
         }
       });
     } else if (sortBy === 'ticket') {
