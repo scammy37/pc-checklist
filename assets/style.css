@@ -155,6 +155,8 @@ ul.checklist, ul.ticket-list { list-style: none; margin: 0; padding: 0; }
   margin: 16px 0 6px;
 }
 .group-header:first-child { margin-top: 0; }
+.group-header-toggle { cursor: pointer; user-select: none; }
+.group-header-toggle:hover { color: var(--text); }
 
 button {
   font-size: 0.85rem;

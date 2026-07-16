@@ -144,7 +144,18 @@
   const completedList = document.getElementById('completedList');
   let cached = { inProgress: [], completed: [] };
 
-  function renderList(container, entries, sortBy) {
+  const groupExpanded = {};
+  function isGroupExpanded(sectionKey, agent) {
+    const key = sectionKey + '::' + agent;
+    if (!(key in groupExpanded)) groupExpanded[key] = sectionKey === 'inProgress';
+    return groupExpanded[key];
+  }
+  function toggleGroupExpanded(sectionKey, agent) {
+    groupExpanded[sectionKey + '::' + agent] = !isGroupExpanded(sectionKey, agent);
+    renderAll();
+  }
+
+  function renderList(container, entries, sortBy, sectionKey) {
     container.innerHTML = '';
     if (sortBy === 'tech') {
       const sorted = entries.slice().sort((a, b) => {
@@ -152,17 +163,22 @@
         if (techCompare !== 0) return techCompare;
         return (b.updatedAt || '').localeCompare(a.updatedAt || '');
       });
-      let lastTech = null;
+      const groups = {};
       sorted.forEach((entry) => {
         const tech = entry.createdBy || 'Unknown';
-        if (tech !== lastTech) {
-          const header = document.createElement('div');
-          header.className = 'group-header';
-          header.textContent = tech;
-          container.appendChild(header);
-          lastTech = tech;
+        (groups[tech] = groups[tech] || []).push(entry);
+      });
+      Object.keys(groups).forEach((tech) => {
+        const groupEntries = groups[tech];
+        const expanded = isGroupExpanded(sectionKey, tech);
+        const header = document.createElement('div');
+        header.className = 'group-header group-header-toggle';
+        header.textContent = `${expanded ? '▾' : '▸'} ${tech} (${groupEntries.length})`;
+        header.addEventListener('click', () => toggleGroupExpanded(sectionKey, tech));
+        container.appendChild(header);
+        if (expanded) {
+          groupEntries.forEach((entry) => container.appendChild(renderTicketRow(entry)));
         }
-        container.appendChild(renderTicketRow(entry));
       });
     } else if (sortBy === 'ticket') {
       entries
@@ -179,8 +195,8 @@
 
   function renderAll() {
     setActiveSortButton();
-    renderList(inProgressList, cached.inProgress, currentSort);
-    renderList(completedList, cached.completed, currentSort);
+    renderList(inProgressList, cached.inProgress, currentSort, 'inProgress');
+    renderList(completedList, cached.completed, currentSort, 'completed');
     document.getElementById('inProgressEmpty').style.display = cached.inProgress.length ? 'none' : 'block';
     document.getElementById('completedEmpty').style.display = cached.completed.length ? 'none' : 'block';
   }
