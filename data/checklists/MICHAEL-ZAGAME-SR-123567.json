@@ -48,9 +48,9 @@
       "steps": [
         "Verify device model, RAM, SSD size, and condition match the order."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-16T18:32:04.707Z"
     },
     {
       "id": 5,
