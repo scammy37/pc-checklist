@@ -213,9 +213,9 @@
       "steps": [
         "Confirm that all required software has been installed."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Heather Irias",
+      "at": "2026-07-16T13:22:33.475Z"
     },
     {
       "id": 17,
