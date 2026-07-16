@@ -54,8 +54,8 @@ a { color: var(--accent); }
 }
 .card h2 { font-size: 1.05rem; margin-top: 0; margin-bottom: 14px; }
 
-.top-row { display: flex; gap: 24px; flex-wrap: wrap; }
-.top-col { flex: 1; min-width: 220px; }
+.top-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.top-col { flex: 1; min-width: 170px; }
 
 label.field-label {
   display: block;
