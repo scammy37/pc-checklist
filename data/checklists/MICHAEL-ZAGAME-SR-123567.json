@@ -330,9 +330,9 @@
       "steps": [
         "Register the account on the computer (Okta, Outlook, Teams, OneDrive)."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-16T18:33:34.148Z"
     },
     {
       "id": 25,
