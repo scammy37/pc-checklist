@@ -177,6 +177,10 @@ button:disabled { background: transparent; color: var(--done-text); border-color
 button.secondary { background: transparent; color: var(--muted); border-color: var(--border); }
 button.secondary:hover { background: var(--border); color: var(--text); }
 
+.input-with-btn { display: flex; gap: 8px; align-items: stretch; }
+.input-with-btn input { flex: 1; }
+#startBtn:disabled { background: var(--border); color: var(--muted); border-color: var(--border); cursor: not-allowed; }
+
 .actions-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 
 .sort-buttons { display: flex; gap: 8px; }

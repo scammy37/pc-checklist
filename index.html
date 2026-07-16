@@ -21,12 +21,12 @@
 
       <div class="top-col">
         <label class="field-label" for="ticketInput">Ticket #</label>
-        <input type="text" id="ticketInput" placeholder="SR-XXXXXX">
-        <div class="empty-note" id="ticketPreview"></div>
-        <div class="actions-row" style="margin-top:14px; justify-content:flex-start;">
-          <button id="startBtn" type="button">Start Checklist</button>
-          <span id="startError" class="error-note"></span>
+        <div class="input-with-btn">
+          <input type="text" id="ticketInput" placeholder="SR-XXXXXX">
+          <button id="startBtn" type="button" disabled>Start Checklist</button>
         </div>
+        <div class="empty-note" id="ticketPreview"></div>
+        <span id="startError" class="error-note"></span>
       </div>
 
       <div class="top-col">
@@ -237,14 +237,20 @@
     if (!tech || !num) return '';
     return PCStore.sanitizeTicket(`${tech}-${num}`);
   }
+  const startBtn = document.getElementById('startBtn');
+  function updateStartButtonState() {
+    startBtn.disabled = !buildTicketId();
+  }
   function updateTicketPreview() {
     const id = buildTicketId();
     ticketPreview.textContent = id ? `Will be saved as: ${id}` : '';
+    updateStartButtonState();
   }
   techInput.addEventListener('change', updateTicketPreview);
   ticketInput.addEventListener('input', updateTicketPreview);
+  updateStartButtonState();
 
-  document.getElementById('startBtn').addEventListener('click', async () => {
+  startBtn.addEventListener('click', async () => {
     startError.textContent = '';
     const tech = techInput.value.trim();
     const ticket = buildTicketId();
@@ -253,7 +259,7 @@
     if (!ticket) { startError.textContent = 'Enter a valid ticket number.'; return; }
     if (!PCStore.getToken()) { startError.textContent = 'Add a GitHub token in Settings to start a checklist.'; return; }
 
-    const btn = document.getElementById('startBtn');
+    const btn = startBtn;
     btn.disabled = true;
     btn.textContent = 'Working…';
     try {
@@ -280,8 +286,8 @@
     } catch (e) {
       startError.textContent = e.message;
     } finally {
-      btn.disabled = false;
       btn.textContent = 'Start Checklist';
+      updateStartButtonState();
     }
   });
 
