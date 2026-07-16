@@ -48,9 +48,9 @@
       "steps": [
         "Verify device model, RAM, SSD size, and condition match the order."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Chris Burton",
+      "at": "2026-07-16T12:01:05.152Z"
     },
     {
       "id": 5,
