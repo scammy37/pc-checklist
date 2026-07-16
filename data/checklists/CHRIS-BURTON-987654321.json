@@ -103,9 +103,9 @@
         "Run gpupdate /force to apply GPO.",
         "Reboot laptop."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Chris Burton",
+      "at": "2026-07-16T12:01:08.257Z"
     },
     {
       "id": 9,
