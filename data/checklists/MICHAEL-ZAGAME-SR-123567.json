@@ -353,9 +353,9 @@
       "steps": [
         "Verify that printers have been correctly installed/mapped."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-16T18:33:40.801Z"
     },
     {
       "id": 27,
