@@ -53,6 +53,15 @@
       "updatedAt": "2026-07-16T14:31:45.221Z",
       "doneCount": 4,
       "totalCount": 30
+    },
+    {
+      "ticket": "HEATHER-IRIAS-SR-234567",
+      "status": "in_progress",
+      "createdBy": "Heather Irias",
+      "createdAt": "2026-07-16T14:34:17.550Z",
+      "updatedAt": "2026-07-16T14:34:17.550Z",
+      "doneCount": 0,
+      "totalCount": 30
     }
   ]
 }
