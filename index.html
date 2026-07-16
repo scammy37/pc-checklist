@@ -34,7 +34,7 @@
 
   <div class="card">
     <div class="section-header-row">
-      <h2>In Progress</h2>
+      <h2 id="inProgressHeading">In Progress</h2>
       <div class="section-controls">
         <div class="sort-buttons small" data-section="inProgress">
           <button type="button" class="sort-btn" data-sort="recent">Recent</button>
@@ -50,7 +50,7 @@
 
   <div class="card">
     <div class="section-header-row">
-      <h2>Completed</h2>
+      <h2 id="completedHeading">Completed</h2>
       <div class="section-controls">
         <div class="sort-buttons small" data-section="completed">
           <button type="button" class="sort-btn" data-sort="recent">Recent</button>
@@ -230,6 +230,8 @@
     setActiveSortButtons();
     updateToggleAllLabel('inProgress');
     updateToggleAllLabel('completed');
+    document.getElementById('inProgressHeading').textContent = `In Progress (${cached.inProgress.length})`;
+    document.getElementById('completedHeading').textContent = `Completed (${cached.completed.length})`;
     renderList(inProgressList, cached.inProgress, sortState.inProgress, 'inProgress');
     renderList(completedList, cached.completed, sortState.completed, 'completed');
     document.getElementById('inProgressEmpty').style.display = cached.inProgress.length ? 'none' : 'block';
