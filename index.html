@@ -133,6 +133,12 @@
     const id = document.createElement('div');
     id.className = 'ticket-id';
     id.textContent = entry.ticket;
+    if (hideAgent && entry.createdBy) {
+      const agentPrefix = PCStore.sanitizeTicket(entry.createdBy) + '-';
+      if (entry.ticket.startsWith(agentPrefix) && entry.ticket.length > agentPrefix.length) {
+        id.textContent = entry.ticket.slice(agentPrefix.length);
+      }
+    }
     left.appendChild(id);
     const sub = document.createElement('div');
     sub.className = 'ticket-sub';
