@@ -64,15 +64,6 @@
       "totalCount": 30
     },
     {
-      "ticket": "MICHAEL-ZAGAME-SR-929102",
-      "status": "in_progress",
-      "createdBy": "Michael Zagame",
-      "createdAt": "2026-07-16T18:22:49.156Z",
-      "updatedAt": "2026-07-17T00:16:57.212Z",
-      "doneCount": 3,
-      "totalCount": 30
-    },
-    {
       "ticket": "MICHAEL-ZAGAME-SR-123567",
       "status": "completed",
       "createdBy": "Michael Zagame",
