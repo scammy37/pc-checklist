@@ -249,9 +249,9 @@
         "(New user) Sign in as the user.",
         "(Existing user) Hand/mail the new laptop off to the user and have them sign in. If local setup, configure the machine; if remote, have the user sign in and start a Bomgar session with you."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T14:52:07.869Z"
     },
     {
       "id": 20,
@@ -273,9 +273,9 @@
           "url": "https://hd.milliman.com/support/solutions/articles/14000050535"
         }
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T14:52:07.869Z"
     },
     {
       "id": 21,
@@ -284,9 +284,9 @@
       "steps": [
         "Verify Microsoft Defender or TrendMicro is active and up to date."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T14:52:07.869Z"
     },
     {
       "id": 22,
@@ -302,9 +302,9 @@
           "url": "https://denv-security.milliman.com:84/Default.aspx"
         }
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T14:52:07.869Z"
     },
     {
       "id": 23,
@@ -319,9 +319,9 @@
           "url": "https://milliman.sharepoint.com/sites/NYMetroIS/Policies%20and%20Procedures/Forms/AllItems.aspx?viewid=397dac8f%2Df893%2D4dd0%2Db25a%2D8d5a699575ac&id=%2Fsites%2FNYMetroIS%2FPolicies%20and%20Procedures%2FOutlook%2C%20Mail%20files%2C%20and%20Add%2Dins"
         }
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T14:52:07.869Z"
     },
     {
       "id": 24,
@@ -330,9 +330,9 @@
       "steps": [
         "Register the account on the computer (Okta, Outlook, Teams, OneDrive)."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T14:52:07.869Z"
     },
     {
       "id": 25,
@@ -341,9 +341,9 @@
       "steps": [
         "Verify time zone, keyboard layout, and language preferences."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T14:52:07.869Z"
     },
     {
       "id": 26,
@@ -353,9 +353,9 @@
       "steps": [
         "Verify that printers have been correctly installed/mapped."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T14:52:07.869Z"
     },
     {
       "id": 27,
@@ -373,9 +373,9 @@
           "url": "mailto:chichd@milliman.com"
         }
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T14:52:07.869Z"
     },
     {
       "id": 28,
