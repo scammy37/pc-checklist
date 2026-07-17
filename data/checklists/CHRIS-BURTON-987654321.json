@@ -22,9 +22,9 @@
       "steps": [
         "Advise user to backup their data to OneDrive. For dead machines, try to get the files if possible."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Chris Burton",
+      "at": "2026-07-17T00:08:56.788Z"
     },
     {
       "id": 3,
