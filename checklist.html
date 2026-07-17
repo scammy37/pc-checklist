@@ -263,7 +263,7 @@
     }
   }
 
-  async function markCompleted(itemId) {
+  async function completeItems(ids) {
     const tech = techInput.value.trim();
     if (!tech) {
       alert('Enter your name before marking items completed.');
@@ -274,6 +274,7 @@
       alert('Add a GitHub token on the dashboard (Settings) before saving changes.');
       return;
     }
+    if (!ids.length) return;
     statusNote.textContent = 'Saving…';
     const now = new Date().toISOString();
     try {
@@ -281,10 +282,11 @@
         ticket,
         (data) => ({
           ...data,
-          items: data.items.map((i) => (i.id === itemId ? { ...i, done: true, by: tech, at: now } : i)),
+          items: data.items.map((i) => (ids.includes(i.id) ? { ...i, done: true, by: tech, at: now } : i)),
         }),
-        `Mark item ${itemId} complete on ${ticket}`
+        ids.length > 1 ? `Mark ${ids.length} items complete on ${ticket}` : `Mark item ${ids[0]} complete on ${ticket}`
       );
+      ids.forEach((id) => selectedItems.delete(id));
       const counts = render(saved);
       await PCStore.upsertIndexEntry({
         ticket,
@@ -298,6 +300,11 @@
       statusNote.textContent = `Could not save: ${e.message}`;
       await loadAndRender();
     }
+  }
+
+  async function markCompleted(itemId) {
+    const ids = selectedItems.has(itemId) && selectedItems.size > 1 ? Array.from(selectedItems) : [itemId];
+    await completeItems(ids);
   }
 
   async function unmarkCompleted(itemId) {
@@ -338,43 +345,7 @@
   });
 
   document.getElementById('bulkCompleteBtn').addEventListener('click', async () => {
-    const tech = techInput.value.trim();
-    if (!tech) {
-      alert('Enter your name before marking items completed.');
-      techInput.focus();
-      return;
-    }
-    if (!PCStore.getToken()) {
-      alert('Add a GitHub token on the dashboard (Settings) before saving changes.');
-      return;
-    }
-    const ids = Array.from(selectedItems);
-    if (!ids.length) return;
-    statusNote.textContent = 'Saving…';
-    const now = new Date().toISOString();
-    try {
-      const saved = await PCStore.saveChecklist(
-        ticket,
-        (data) => ({
-          ...data,
-          items: data.items.map((i) => (ids.includes(i.id) ? { ...i, done: true, by: tech, at: now } : i)),
-        }),
-        `Mark ${ids.length} items complete on ${ticket}`
-      );
-      selectedItems.clear();
-      const counts = render(saved);
-      await PCStore.upsertIndexEntry({
-        ticket,
-        updatedAt: now,
-        doneCount: counts.doneCount,
-        totalCount: counts.total,
-        status: counts.doneCount === counts.total ? 'completed' : 'in_progress',
-      });
-      statusNote.textContent = `Saved. Last refreshed ${new Date().toLocaleString()}.`;
-    } catch (e) {
-      statusNote.textContent = `Could not save: ${e.message}`;
-      await loadAndRender();
-    }
+    await completeItems(Array.from(selectedItems));
   });
 
   document.getElementById('printBtn').addEventListener('click', () => {
