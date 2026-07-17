@@ -59,9 +59,9 @@
       "steps": [
         "Power on the laptop and perform a basic hardware check (screen, keyboard, touchpad, ports)."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Chris Burton",
+      "at": "2026-07-17T00:09:00.547Z"
     },
     {
       "id": 6,
