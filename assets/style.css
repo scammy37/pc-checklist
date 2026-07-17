@@ -219,8 +219,8 @@ button.danger:hover { background: var(--error-text); color: white; }
   margin-bottom: 14px;
 }
 .section-header-row h2 { margin: 0; }
-.section-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.section-search { width: 150px; padding: 5px 10px; font-size: 0.78rem; }
+.section-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.section-controls .section-search { width: 100px; flex: none; padding: 5px 8px; font-size: 0.78rem; }
 
 .empty-note { font-size: 0.85rem; color: var(--muted); padding: 6px 2px; }
 .error-note { font-size: 0.85rem; color: var(--error-text); padding: 6px 2px; }
