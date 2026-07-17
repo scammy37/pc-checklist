@@ -103,9 +103,9 @@
         "Run gpupdate /force to apply GPO.",
         "Reboot laptop."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T14:51:03.219Z"
     },
     {
       "id": 9,
@@ -116,9 +116,9 @@
         "Reboot connected to Wi-Fi to verify you can login.",
         "Verify DA, ZN and AoVPN works as expected."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T14:51:03.219Z"
     },
     {
       "id": 10,
