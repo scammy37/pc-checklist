@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PC Deployment Dashboard</title>
-<link rel="stylesheet" href="assets/style.css?v=7">
+<link rel="stylesheet" href="assets/style.css?v=8">
 </head>
 <body>
 <div class="wrap">
@@ -33,15 +33,10 @@
   </div>
 
   <div class="card">
-    <div class="search-row">
-      <input type="text" id="searchInput" placeholder="Search by ticket # or agent name…">
-    </div>
-  </div>
-
-  <div class="card">
     <div class="section-header-row">
       <h2 id="inProgressHeading">In Progress</h2>
       <div class="section-controls">
+        <input type="text" class="section-search" data-section="inProgress" placeholder="Search…">
         <div class="sort-buttons small" data-section="inProgress">
           <button type="button" class="sort-btn" data-sort="recent">Recent</button>
           <button type="button" class="sort-btn" data-sort="tech">Agent</button>
@@ -58,6 +53,7 @@
     <div class="section-header-row">
       <h2 id="completedHeading">Completed</h2>
       <div class="section-controls">
+        <input type="text" class="section-search" data-section="completed" placeholder="Search…">
         <div class="sort-buttons small" data-section="completed">
           <button type="button" class="sort-btn" data-sort="recent">Recent</button>
           <button type="button" class="sort-btn" data-sort="tech">Agent</button>
@@ -237,10 +233,9 @@
     }
   }
 
-  const searchInput = document.getElementById('searchInput');
-
-  function applyFilters(list) {
-    const q = searchInput.value.trim().toLowerCase();
+  function applyFilters(list, sectionKey) {
+    const input = document.querySelector(`.section-search[data-section="${sectionKey}"]`);
+    const q = input ? input.value.trim().toLowerCase() : '';
     if (!q) return list;
     return list.filter((c) =>
       c.ticket.toLowerCase().includes(q) || (c.createdBy || '').toLowerCase().includes(q)
@@ -257,8 +252,8 @@
     setActiveSortButtons();
     updateToggleAllLabel('inProgress');
     updateToggleAllLabel('completed');
-    const filteredInProgress = applyFilters(cached.inProgress);
-    const filteredCompleted = applyFilters(cached.completed);
+    const filteredInProgress = applyFilters(cached.inProgress, 'inProgress');
+    const filteredCompleted = applyFilters(cached.completed, 'completed');
     document.getElementById('inProgressHeading').textContent = `In Progress (${filteredInProgress.length})`;
     document.getElementById('completedHeading').textContent = `Completed (${filteredCompleted.length})`;
     renderList(inProgressList, filteredInProgress, sortState.inProgress, 'inProgress');
@@ -267,7 +262,9 @@
     updateEmptyNote('completedEmpty', filteredCompleted.length, cached.completed.length, 'No completed checklists yet.');
   }
 
-  searchInput.addEventListener('input', renderAll);
+  document.querySelectorAll('.section-search').forEach((input) => {
+    input.addEventListener('input', renderAll);
+  });
 
   document.querySelectorAll('.sort-buttons[data-section] .sort-btn').forEach((btn) => {
     btn.addEventListener('click', () => {

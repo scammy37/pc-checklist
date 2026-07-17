@@ -54,7 +54,7 @@ a { color: var(--accent); }
 }
 .card h2 { font-size: 1.05rem; margin-top: 0; margin-bottom: 14px; }
 
-.top-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.top-row { display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
 .top-col { flex: 1; min-width: 170px; }
 
 label.field-label {
@@ -210,9 +210,6 @@ button.danger:hover { background: var(--error-text); color: white; }
 
 .sort-buttons.small .sort-btn { padding: 5px 10px; font-size: 0.78rem; flex: none; }
 
-.search-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.search-row input[type="text"] { flex: 1; min-width: 220px; }
-
 .section-header-row {
   display: flex;
   justify-content: space-between;
@@ -223,6 +220,7 @@ button.danger:hover { background: var(--error-text); color: white; }
 }
 .section-header-row h2 { margin: 0; }
 .section-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.section-search { width: 150px; padding: 5px 10px; font-size: 0.78rem; }
 
 .empty-note { font-size: 0.85rem; color: var(--muted); padding: 6px 2px; }
 .error-note { font-size: 0.85rem; color: var(--error-text); padding: 6px 2px; }
