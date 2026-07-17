@@ -213,9 +213,9 @@
       "steps": [
         "Confirm that all required software has been installed."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Lopez",
+      "at": "2026-07-17T14:39:26.959Z"
     },
     {
       "id": 17,
@@ -224,9 +224,9 @@
       "steps": [
         "Verify there are no device errors or missing drivers."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Lopez",
+      "at": "2026-07-17T14:39:26.959Z"
     },
     {
       "id": 18,
@@ -237,9 +237,9 @@
         "Confirm Zero Network is working properly.",
         "Confirm Zscaler is working properly."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Lopez",
+      "at": "2026-07-17T14:39:26.959Z"
     },
     {
       "id": 19,
