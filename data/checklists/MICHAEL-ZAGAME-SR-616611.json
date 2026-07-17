@@ -133,9 +133,9 @@
           "url": "https://milliman.sharepoint.com/:x:/r/teams/GCSPracticeSupportServices/Shared%20Documents/General/PC%20Checklists/Combined_PC_Build_Checklists_Modified.xlsx?d=w609ccf560dd445ff9ed7b5add738832a&csf=1&web=1&e=hOZ6rt"
         }
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T18:38:45.945Z"
     },
     {
       "id": 11,
@@ -150,9 +150,9 @@
           "url": "https://milliman.sharepoint.com/:x:/r/teams/GCSPracticeSupportServices/Shared%20Documents/General/PC%20Checklists/Combined_PC_Build_Checklists_Modified.xlsx?d=w609ccf560dd445ff9ed7b5add738832a&csf=1&web=1&e=hOZ6rt"
         }
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T18:38:45.945Z"
     },
     {
       "id": 12,
@@ -168,9 +168,9 @@
           "url": "https://milliman.sharepoint.com/:w:/r/teams/GCSPracticeSupportServices/Documentation%20Library/__PSS%20-%20Combined%20Documents/PC%20Deployment/Procedure%20-%20New%20PC%20Qualys%20Job.docx?d=w20cc4f675a954179a3b35cfea2662b67&csf=1&web=1&e=cjOkMr"
         }
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T18:38:45.945Z"
     },
     {
       "id": 13,
@@ -213,9 +213,9 @@
       "steps": [
         "Confirm that all required software has been installed."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T18:38:45.945Z"
     },
     {
       "id": 17,
@@ -224,9 +224,9 @@
       "steps": [
         "Verify there are no device errors or missing drivers."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T18:38:45.945Z"
     },
     {
       "id": 18,
@@ -237,9 +237,9 @@
         "Confirm Zero Network is working properly.",
         "Confirm Zscaler is working properly."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T18:38:45.945Z"
     },
     {
       "id": 19,
