@@ -142,9 +142,14 @@
       li.appendChild(main);
 
       const btn = document.createElement('button');
-      btn.textContent = item.done ? 'Completed' : 'Mark completed';
-      btn.disabled = item.done;
-      btn.addEventListener('click', () => markCompleted(item.id));
+      if (item.done) {
+        btn.textContent = 'Undo';
+        btn.className = 'secondary';
+        btn.addEventListener('click', () => unmarkCompleted(item.id));
+      } else {
+        btn.textContent = 'Mark completed';
+        btn.addEventListener('click', () => markCompleted(item.id));
+      }
       li.appendChild(btn);
 
       checklistEl.appendChild(li);
@@ -214,6 +219,37 @@
       await PCStore.upsertIndexEntry({
         ticket,
         updatedAt: now,
+        doneCount: counts.doneCount,
+        totalCount: counts.total,
+        status: counts.doneCount === counts.total ? 'completed' : 'in_progress',
+      });
+      statusNote.textContent = `Saved. Last refreshed ${new Date().toLocaleString()}.`;
+    } catch (e) {
+      statusNote.textContent = `Could not save: ${e.message}`;
+      await loadAndRender();
+    }
+  }
+
+  async function unmarkCompleted(itemId) {
+    if (!PCStore.getToken()) {
+      alert('Add a GitHub token on the dashboard (Settings) before saving changes.');
+      return;
+    }
+    if (!confirm('Undo this item and mark it not completed?')) return;
+    statusNote.textContent = 'Saving…';
+    try {
+      const saved = await PCStore.saveChecklist(
+        ticket,
+        (data) => ({
+          ...data,
+          items: data.items.map((i) => (i.id === itemId ? { ...i, done: false, by: null, at: null } : i)),
+        }),
+        `Undo item ${itemId} on ${ticket}`
+      );
+      const counts = render(saved);
+      await PCStore.upsertIndexEntry({
+        ticket,
+        updatedAt: new Date().toISOString(),
         doneCount: counts.doneCount,
         totalCount: counts.total,
         status: counts.doneCount === counts.total ? 'completed' : 'in_progress',
