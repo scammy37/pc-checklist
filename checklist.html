@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PC Checklist</title>
-<link rel="stylesheet" href="assets/style.css?v=10">
+<link rel="stylesheet" href="assets/style.css?v=11">
 </head>
 <body>
 <div class="wrap">
@@ -25,6 +25,10 @@
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
       <span class="progress-label" id="progressLabel">Loading…</span>
     </div>
+    <label class="checkbox-label" style="margin-top:10px;">
+      <input type="checkbox" id="hideCompletedToggle">
+      Hide completed items
+    </label>
   </div>
 
   <div class="card no-print" id="bulkBar" style="display:none;">
@@ -39,6 +43,7 @@
 
   <div class="card">
     <ul class="checklist" id="checklist"></ul>
+    <div class="empty-note" id="allHiddenNote" style="display:none;">All items are completed and hidden. Uncheck "Hide completed items" to see them.</div>
     <div class="error-note" id="loadError"></div>
   </div>
 
@@ -96,6 +101,8 @@
   }
 
   const selectedItems = new Set();
+  let currentData = null;
+  let hideCompleted = false;
 
   function updateBulkBar() {
     const bar = document.getElementById('bulkBar');
@@ -106,6 +113,7 @@
   }
 
   function render(data) {
+    currentData = data;
     checklistEl.innerHTML = '';
 
     Array.from(selectedItems).forEach((id) => {
@@ -118,8 +126,10 @@
       if (!item.done) (incompleteBySection[item.section] = incompleteBySection[item.section] || []).push(item.id);
     });
 
+    const itemsToRender = hideCompleted ? data.items.filter((i) => !i.done) : data.items;
+
     let lastSection = null;
-    data.items.forEach((item) => {
+    itemsToRender.forEach((item) => {
       if (item.section && item.section !== lastSection) {
         const header = document.createElement('div');
         header.className = 'group-header';
@@ -223,6 +233,8 @@
 
       checklistEl.appendChild(li);
     });
+
+    document.getElementById('allHiddenNote').style.display = itemsToRender.length ? 'none' : 'block';
 
     const doneCount = data.items.filter((i) => i.done).length;
     const total = data.items.length;
@@ -350,6 +362,11 @@
 
   document.getElementById('printBtn').addEventListener('click', () => {
     window.print();
+  });
+
+  document.getElementById('hideCompletedToggle').addEventListener('change', (e) => {
+    hideCompleted = e.target.checked;
+    if (currentData) render(currentData);
   });
 
   document.getElementById('deleteBtn').addEventListener('click', async () => {
