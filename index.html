@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PC Deployment Dashboard</title>
-<link rel="stylesheet" href="assets/style.css?v=5">
+<link rel="stylesheet" href="assets/style.css?v=6">
 </head>
 <body>
 <div class="wrap">
@@ -244,6 +244,14 @@
   const searchInput = document.getElementById('searchInput');
   const myTicketsOnly = document.getElementById('myTicketsOnly');
 
+  function updateMyTicketsAvailability() {
+    const hasAgent = !!techInput.value;
+    myTicketsOnly.disabled = !hasAgent;
+    myTicketsOnly.parentElement.classList.toggle('disabled', !hasAgent);
+    myTicketsOnly.parentElement.title = hasAgent ? '' : 'Select your name above first';
+    if (!hasAgent) myTicketsOnly.checked = false;
+  }
+
   function applyFilters(list) {
     let filtered = list;
     if (myTicketsOnly.checked && techInput.value) {
@@ -331,9 +339,14 @@
     ticketPreview.textContent = id ? `Will be saved as: ${id}` : '';
     updateStartButtonState();
   }
-  techInput.addEventListener('change', updateTicketPreview);
+  techInput.addEventListener('change', () => {
+    updateTicketPreview();
+    updateMyTicketsAvailability();
+    renderAll();
+  });
   ticketInput.addEventListener('input', updateTicketPreview);
   updateStartButtonState();
+  updateMyTicketsAvailability();
 
   function findSimilarTickets(numRaw, excludeTicket) {
     const digits = (numRaw.match(/\d+/g) || []).join('');

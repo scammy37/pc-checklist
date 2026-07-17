@@ -222,6 +222,8 @@ button.danger:hover { background: var(--error-text); color: white; }
   cursor: pointer;
 }
 .checkbox-label input[type="checkbox"] { width: auto; cursor: pointer; }
+.checkbox-label.disabled { color: var(--muted); cursor: not-allowed; }
+.checkbox-label input:disabled { cursor: not-allowed; }
 
 .section-header-row {
   display: flex;
