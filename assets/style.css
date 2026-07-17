@@ -101,6 +101,8 @@ ul.checklist, ul.ticket-list { list-style: none; margin: 0; padding: 0; }
   background: var(--bg);
 }
 .item.done { background: var(--done-bg); border-color: var(--done-border); }
+.item-select { width: 18px; height: 18px; flex: none; margin-top: 2px; cursor: pointer; }
+.section-select-all { width: 15px; height: 15px; cursor: pointer; margin-right: 8px; vertical-align: -2px; }
 .item-main { flex: 1; }
 .item-text { font-size: 0.95rem; }
 .item-meta { margin-top: 6px; font-size: 0.78rem; color: var(--done-text); display: none; }
@@ -263,6 +265,7 @@ details.settings p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; 
   .item.done { background: #fff; }
   .item-meta { display: block !important; }
   .item button { display: none; }
+  .item-select, .section-select-all { display: none; }
   .item-links a { color: #000; text-decoration: underline; }
   .item-links a::after { content: " (" attr(href) ")"; font-size: 0.75rem; color: #555; }
 }

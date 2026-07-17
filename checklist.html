@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PC Checklist</title>
-<link rel="stylesheet" href="assets/style.css?v=4">
+<link rel="stylesheet" href="assets/style.css?v=5">
 </head>
 <body>
 <div class="wrap">
@@ -24,6 +24,16 @@
     <div class="progress-row">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
       <span class="progress-label" id="progressLabel">Loading…</span>
+    </div>
+  </div>
+
+  <div class="card no-print" id="bulkBar" style="display:none;">
+    <div class="actions-row">
+      <span id="bulkBarLabel" style="font-size:0.85rem;color:var(--muted);"></span>
+      <div style="display:flex; gap:8px;">
+        <button class="secondary" id="bulkClearBtn" type="button">Clear selection</button>
+        <button id="bulkCompleteBtn" type="button">Mark selected as completed</button>
+      </div>
     </div>
   </div>
 
@@ -85,20 +95,72 @@
     return data.createdBy || '';
   }
 
+  const selectedItems = new Set();
+
+  function updateBulkBar() {
+    const bar = document.getElementById('bulkBar');
+    const count = selectedItems.size;
+    bar.style.display = count ? 'block' : 'none';
+    document.getElementById('bulkBarLabel').textContent = `${count} item${count === 1 ? '' : 's'} selected`;
+    document.getElementById('bulkCompleteBtn').textContent = `Mark ${count} Completed`;
+  }
+
   function render(data) {
     checklistEl.innerHTML = '';
+
+    Array.from(selectedItems).forEach((id) => {
+      const item = data.items.find((i) => i.id === id);
+      if (!item || item.done) selectedItems.delete(id);
+    });
+
+    const incompleteBySection = {};
+    data.items.forEach((item) => {
+      if (!item.done) (incompleteBySection[item.section] = incompleteBySection[item.section] || []).push(item.id);
+    });
+
     let lastSection = null;
     data.items.forEach((item) => {
       if (item.section && item.section !== lastSection) {
         const header = document.createElement('div');
         header.className = 'group-header';
-        header.textContent = item.section;
+        const sectionIds = incompleteBySection[item.section] || [];
+        if (sectionIds.length) {
+          const sectionCb = document.createElement('input');
+          sectionCb.type = 'checkbox';
+          sectionCb.className = 'section-select-all';
+          sectionCb.checked = sectionIds.every((id) => selectedItems.has(id));
+          sectionCb.title = `Select all incomplete items in ${item.section}`;
+          sectionCb.addEventListener('change', () => {
+            sectionIds.forEach((id) => {
+              if (sectionCb.checked) selectedItems.add(id); else selectedItems.delete(id);
+            });
+            document.querySelectorAll(`.item-select[data-section="${CSS.escape(item.section)}"]`).forEach((cb) => {
+              cb.checked = sectionCb.checked;
+            });
+            updateBulkBar();
+          });
+          header.appendChild(sectionCb);
+        }
+        header.appendChild(document.createTextNode(item.section));
         checklistEl.appendChild(header);
         lastSection = item.section;
       }
 
       const li = document.createElement('li');
       li.className = 'item' + (item.done ? ' done' : '');
+
+      if (!item.done) {
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.className = 'item-select';
+        cb.dataset.section = item.section;
+        cb.checked = selectedItems.has(item.id);
+        cb.addEventListener('change', () => {
+          if (cb.checked) selectedItems.add(item.id); else selectedItems.delete(item.id);
+          updateBulkBar();
+        });
+        li.appendChild(cb);
+      }
 
       const main = document.createElement('div');
       main.className = 'item-main';
@@ -168,6 +230,7 @@
     progressLabel.textContent = `${doneCount} / ${total} completed`;
 
     printMeta.textContent = `Ticket ${ticket} — ${new Date().toLocaleDateString()} — ${doneCount}/${total} items complete`;
+    updateBulkBar();
 
     return { doneCount, total };
   }
@@ -267,6 +330,52 @@
       await loadAndRender();
     }
   }
+
+  document.getElementById('bulkClearBtn').addEventListener('click', () => {
+    selectedItems.clear();
+    document.querySelectorAll('.item-select, .section-select-all').forEach((cb) => { cb.checked = false; });
+    updateBulkBar();
+  });
+
+  document.getElementById('bulkCompleteBtn').addEventListener('click', async () => {
+    const tech = techInput.value.trim();
+    if (!tech) {
+      alert('Enter your name before marking items completed.');
+      techInput.focus();
+      return;
+    }
+    if (!PCStore.getToken()) {
+      alert('Add a GitHub token on the dashboard (Settings) before saving changes.');
+      return;
+    }
+    const ids = Array.from(selectedItems);
+    if (!ids.length) return;
+    statusNote.textContent = 'Saving…';
+    const now = new Date().toISOString();
+    try {
+      const saved = await PCStore.saveChecklist(
+        ticket,
+        (data) => ({
+          ...data,
+          items: data.items.map((i) => (ids.includes(i.id) ? { ...i, done: true, by: tech, at: now } : i)),
+        }),
+        `Mark ${ids.length} items complete on ${ticket}`
+      );
+      selectedItems.clear();
+      const counts = render(saved);
+      await PCStore.upsertIndexEntry({
+        ticket,
+        updatedAt: now,
+        doneCount: counts.doneCount,
+        totalCount: counts.total,
+        status: counts.doneCount === counts.total ? 'completed' : 'in_progress',
+      });
+      statusNote.textContent = `Saved. Last refreshed ${new Date().toLocaleString()}.`;
+    } catch (e) {
+      statusNote.textContent = `Could not save: ${e.message}`;
+      await loadAndRender();
+    }
+  });
 
   document.getElementById('printBtn').addEventListener('click', () => {
     window.print();
