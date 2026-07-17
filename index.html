@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PC Deployment Dashboard</title>
-<link rel="stylesheet" href="assets/style.css?v=3">
+<link rel="stylesheet" href="assets/style.css?v=4">
 </head>
 <body>
 <div class="wrap">
@@ -29,6 +29,16 @@
         <span id="startError" class="error-note"></span>
       </div>
 
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="search-row">
+      <input type="text" id="searchInput" placeholder="Search by ticket # or agent name…">
+      <label class="checkbox-label">
+        <input type="checkbox" id="myTicketsOnly">
+        Show only my tickets
+      </label>
     </div>
   </div>
 
@@ -92,7 +102,7 @@
   </p>
 </div>
 
-<script src="assets/github-store.js?v=2"></script>
+<script src="assets/github-store.js?v=3"></script>
 <script src="assets/pc-deployment-items.js?v=2"></script>
 <script src="assets/staff.js?v=2"></script>
 <script>
@@ -207,9 +217,11 @@
       Object.keys(groups).forEach((tech) => {
         const groupEntries = groups[tech];
         const expanded = isGroupExpanded(sectionKey, tech);
-        const header = document.createElement('div');
+        const header = document.createElement('button');
+        header.type = 'button';
         header.className = 'group-header group-header-toggle';
         header.textContent = `${expanded ? '▾' : '▸'} ${tech} (${groupEntries.length})`;
+        header.setAttribute('aria-expanded', String(expanded));
         header.addEventListener('click', () => toggleGroupExpanded(sectionKey, tech));
         container.appendChild(header);
         if (expanded) {
@@ -229,17 +241,45 @@
     }
   }
 
+  const searchInput = document.getElementById('searchInput');
+  const myTicketsOnly = document.getElementById('myTicketsOnly');
+
+  function applyFilters(list) {
+    let filtered = list;
+    if (myTicketsOnly.checked && techInput.value) {
+      filtered = filtered.filter((c) => c.createdBy === techInput.value);
+    }
+    const q = searchInput.value.trim().toLowerCase();
+    if (q) {
+      filtered = filtered.filter((c) =>
+        c.ticket.toLowerCase().includes(q) || (c.createdBy || '').toLowerCase().includes(q)
+      );
+    }
+    return filtered;
+  }
+
+  function updateEmptyNote(id, filteredLen, cachedLen, defaultMsg) {
+    const el = document.getElementById(id);
+    el.style.display = filteredLen ? 'none' : 'block';
+    el.textContent = !filteredLen && cachedLen ? 'No tickets match your search/filter.' : defaultMsg;
+  }
+
   function renderAll() {
     setActiveSortButtons();
     updateToggleAllLabel('inProgress');
     updateToggleAllLabel('completed');
-    document.getElementById('inProgressHeading').textContent = `In Progress (${cached.inProgress.length})`;
-    document.getElementById('completedHeading').textContent = `Completed (${cached.completed.length})`;
-    renderList(inProgressList, cached.inProgress, sortState.inProgress, 'inProgress');
-    renderList(completedList, cached.completed, sortState.completed, 'completed');
-    document.getElementById('inProgressEmpty').style.display = cached.inProgress.length ? 'none' : 'block';
-    document.getElementById('completedEmpty').style.display = cached.completed.length ? 'none' : 'block';
+    const filteredInProgress = applyFilters(cached.inProgress);
+    const filteredCompleted = applyFilters(cached.completed);
+    document.getElementById('inProgressHeading').textContent = `In Progress (${filteredInProgress.length})`;
+    document.getElementById('completedHeading').textContent = `Completed (${filteredCompleted.length})`;
+    renderList(inProgressList, filteredInProgress, sortState.inProgress, 'inProgress');
+    renderList(completedList, filteredCompleted, sortState.completed, 'completed');
+    updateEmptyNote('inProgressEmpty', filteredInProgress.length, cached.inProgress.length, 'Nothing in Progress right now.');
+    updateEmptyNote('completedEmpty', filteredCompleted.length, cached.completed.length, 'No completed checklists yet.');
   }
+
+  searchInput.addEventListener('input', renderAll);
+  myTicketsOnly.addEventListener('change', renderAll);
 
   document.querySelectorAll('.sort-buttons[data-section] .sort-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -295,6 +335,16 @@
   ticketInput.addEventListener('input', updateTicketPreview);
   updateStartButtonState();
 
+  function findSimilarTickets(numRaw, excludeTicket) {
+    const digits = (numRaw.match(/\d+/g) || []).join('');
+    if (!digits) return [];
+    return [...cached.inProgress, ...cached.completed].filter((c) => {
+      if (c.ticket === excludeTicket) return false;
+      const cDigits = (c.ticket.match(/\d+/g) || []).join('');
+      return cDigits && cDigits === digits;
+    });
+  }
+
   startBtn.addEventListener('click', async () => {
     startError.textContent = '';
     const tech = techInput.value.trim();
@@ -310,6 +360,15 @@
     try {
       const existing = await PCStore.loadChecklist(ticket);
       if (!existing) {
+        const similar = findSimilarTickets(ticketInput.value.trim(), ticket);
+        if (similar.length) {
+          const list = similar.map((c) => `${c.ticket} (started by ${c.createdBy || 'unknown'})`).join(', ');
+          if (!confirm(`A similar ticket number already exists: ${list}. Start a new checklist anyway?`)) {
+            btn.textContent = 'Start Checklist';
+            updateStartButtonState();
+            return;
+          }
+        }
         const now = new Date().toISOString();
         const defaultItems = PC_DEPLOYMENT_ITEMS.map((i) => ({ ...i, done: false, by: null, at: null }));
         await PCStore.saveChecklist(

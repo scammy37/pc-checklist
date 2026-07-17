@@ -68,12 +68,25 @@ async function ghPutFile(path, obj, message, sha) {
   return res.json();
 }
 
+async function ghDeleteFile(path, sha, message) {
+  const res = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
+    method: 'DELETE',
+    headers: { ...authHeaders(true), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, sha, branch: GH_BRANCH }),
+  });
+  if (!res.ok) {
+    const errBody = await res.json().catch(() => ({}));
+    throw new Error(`GitHub delete failed (${res.status}): ${errBody.message || res.statusText}`);
+  }
+  return res.json();
+}
+
 // Re-fetches the file, applies mutateFn to its current contents, and writes the
-// result back with the fresh sha. Retries once on a 409 conflict so a second
-// tech saving at nearly the same time doesn't lose their update.
+// result back with the fresh sha. Retries on a 409 conflict so techs saving at
+// nearly the same time don't lose an update.
 async function saveWithRetry(path, mutateFn, message, emptyDefault) {
   let lastErr;
-  for (let attempt = 0; attempt < 2; attempt++) {
+  for (let attempt = 0; attempt < 3; attempt++) {
     const current = await ghGetFile(path);
     const nextObj = mutateFn(current ? current.json : emptyDefault);
     try {
@@ -81,7 +94,7 @@ async function saveWithRetry(path, mutateFn, message, emptyDefault) {
       return nextObj;
     } catch (e) {
       lastErr = e;
-      if (attempt === 0 && /\(409\)|\(422\)/.test(e.message)) continue;
+      if (attempt < 2 && /\(409\)|\(422\)/.test(e.message)) continue;
       throw e;
     }
   }
@@ -124,6 +137,22 @@ async function saveChecklist(ticket, mutateFn, message) {
   return saveWithRetry(checklistPath(ticket), mutateFn, message, null);
 }
 
+async function removeIndexEntry(ticket, message) {
+  return saveWithRetry(
+    INDEX_PATH,
+    (indexObj) => ({ checklists: (indexObj?.checklists || []).filter((c) => c.ticket !== ticket) }),
+    message,
+    EMPTY_INDEX
+  );
+}
+
+async function deleteChecklist(ticket, message) {
+  const path = checklistPath(ticket);
+  const current = await ghGetFile(path);
+  if (!current) return;
+  await ghDeleteFile(path, current.sha, message);
+}
+
 window.PCStore = {
   getToken,
   setToken,
@@ -132,4 +161,6 @@ window.PCStore = {
   loadChecklist,
   saveChecklist,
   upsertIndexEntry,
+  removeIndexEntry,
+  deleteChecklist,
 };

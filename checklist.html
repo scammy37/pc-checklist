@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PC Checklist</title>
-<link rel="stylesheet" href="assets/style.css?v=3">
+<link rel="stylesheet" href="assets/style.css?v=4">
 </head>
 <body>
 <div class="wrap">
@@ -39,11 +39,18 @@
     </div>
   </div>
 
+  <div class="card no-print">
+    <div class="actions-row">
+      <span style="font-size:0.85rem;color:var(--muted);">Created this by mistake or need to remove a duplicate? Delete it permanently.</span>
+      <button class="danger" id="deleteBtn" type="button">Delete Checklist</button>
+    </div>
+  </div>
+
   <p class="footnote no-print" id="statusNote"></p>
   <p class="no-print all-checklists-link"><a href="index.html">&larr; All checklists</a></p>
 </div>
 
-<script src="assets/github-store.js?v=2"></script>
+<script src="assets/github-store.js?v=3"></script>
 <script src="assets/staff.js?v=2"></script>
 <script>
   const params = new URLSearchParams(window.location.search);
@@ -263,6 +270,23 @@
 
   document.getElementById('printBtn').addEventListener('click', () => {
     window.print();
+  });
+
+  document.getElementById('deleteBtn').addEventListener('click', async () => {
+    if (!ticket) return;
+    if (!PCStore.getToken()) {
+      alert('Add a GitHub token on the dashboard (Settings) before deleting a checklist.');
+      return;
+    }
+    if (!confirm(`Permanently delete checklist "${ticket}"? This cannot be undone.`)) return;
+    statusNote.textContent = 'Deleting…';
+    try {
+      await PCStore.deleteChecklist(ticket, `Delete checklist ${ticket}`);
+      await PCStore.removeIndexEntry(ticket, `Remove ${ticket} from index`);
+      window.location.href = 'index.html';
+    } catch (e) {
+      statusNote.textContent = `Could not delete: ${e.message}`;
+    }
   });
 
   loadAndRender();
