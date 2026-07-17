@@ -10,9 +10,9 @@
       "steps": [
         "Verify all required information is completed in the ticket."
       ],
-      "done": true,
-      "by": "Michael Zagame",
-      "at": "2026-07-16T14:31:21.782Z"
+      "done": false,
+      "by": null,
+      "at": null
     },
     {
       "id": 2,
