@@ -202,9 +202,9 @@
       "steps": [
         "Ensure local admin credentials are configured according to policy. The local admin account is \"Corp IT\"."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T18:38:41.993Z"
     },
     {
       "id": 16,
