@@ -10,9 +10,9 @@
       "steps": [
         "Verify all required information is completed in the ticket."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T15:42:53.071Z"
     },
     {
       "id": 2,
@@ -22,9 +22,9 @@
       "steps": [
         "Advise user to backup their data to OneDrive. For dead machines, try to get the files if possible."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T15:42:53.071Z"
     },
     {
       "id": 3,
@@ -37,9 +37,9 @@
         "Review and flag unapproved software.",
         "Discuss all non-standard software with the user before reinstalling."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Michael Zagame",
+      "at": "2026-07-17T15:42:53.071Z"
     },
     {
       "id": 4,
