@@ -224,6 +224,7 @@ button.danger:hover { background: var(--error-text); color: white; }
 
 .empty-note { font-size: 0.85rem; color: var(--muted); padding: 6px 2px; }
 .error-note { font-size: 0.85rem; color: var(--error-text); padding: 6px 2px; }
+.empty-note:empty, .error-note:empty { display: none; }
 .footnote { font-size: 0.78rem; color: var(--muted); margin-top: 18px; line-height: 1.4; }
 
 .all-checklists-link {
