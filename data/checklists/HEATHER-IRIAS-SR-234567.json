@@ -237,9 +237,9 @@
         "Confirm Zero Network is working properly.",
         "Confirm Zscaler is working properly."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Heather Irias",
+      "at": "2026-07-20T12:17:22.834Z"
     },
     {
       "id": 19,
