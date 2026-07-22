@@ -59,9 +59,9 @@
       "steps": [
         "Power on the laptop and perform a basic hardware check (screen, keyboard, touchpad, ports)."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Isaac Berhane",
+      "at": "2026-07-22T22:54:37.965Z"
     },
     {
       "id": 6,
@@ -70,9 +70,9 @@
       "steps": [
         "Create the computer in AD using the \"Create Computer Account\" script in the IT Tools folder on your desktop."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Isaac Berhane",
+      "at": "2026-07-22T22:54:37.965Z"
     },
     {
       "id": 7,
@@ -88,9 +88,9 @@
           "url": "https://milliman.sharepoint.com/:w:/r/teams/GCSPracticeSupportServices/Documentation%20Library/__PSS%20-%20Combined%20Documents/SCCM/Procedure%20-%20SCCM%20PC%20Image%20Deployment.docx?d=w6cd0a14b440d4282a47c9d89dee6d0aa&csf=1&web=1&e=SZ7Y7L"
         }
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Isaac Berhane",
+      "at": "2026-07-22T22:54:37.965Z"
     },
     {
       "id": 8,
