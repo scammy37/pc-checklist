@@ -80,6 +80,15 @@
       "updatedAt": "2026-07-17T18:38:56.041Z",
       "doneCount": 22,
       "totalCount": 30
+    },
+    {
+      "ticket": "ISAAC-BERHANE-SR-12345678",
+      "status": "in_progress",
+      "createdBy": "Isaac Berhane",
+      "createdAt": "2026-07-22T22:54:12.170Z",
+      "updatedAt": "2026-07-22T22:54:12.170Z",
+      "doneCount": 0,
+      "totalCount": 30
     }
   ]
 }
