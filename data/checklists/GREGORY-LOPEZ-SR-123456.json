@@ -373,9 +373,9 @@
           "url": "mailto:chichd@milliman.com"
         }
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Lopez",
+      "at": "2026-07-27T19:34:12.473Z"
     },
     {
       "id": 28,
