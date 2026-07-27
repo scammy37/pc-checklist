@@ -284,9 +284,9 @@
       "steps": [
         "Verify Microsoft Defender or TrendMicro is active and up to date."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Lopez",
+      "at": "2026-07-27T19:34:05.439Z"
     },
     {
       "id": 22,
