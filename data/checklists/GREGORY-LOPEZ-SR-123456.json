@@ -341,9 +341,9 @@
       "steps": [
         "Verify time zone, keyboard layout, and language preferences."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Gregory Lopez",
+      "at": "2026-07-27T19:34:09.841Z"
     },
     {
       "id": 26,
