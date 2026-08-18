@@ -284,9 +284,9 @@
       "steps": [
         "Verify Microsoft Defender or TrendMicro is active and up to date."
       ],
-      "done": false,
-      "by": null,
-      "at": null
+      "done": true,
+      "by": "Heather Irias",
+      "at": "2026-08-18T18:15:01.950Z"
     },
     {
       "id": 22,
