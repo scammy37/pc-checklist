@@ -125,6 +125,15 @@
       "updatedAt": "2026-09-22T15:19:26.647Z",
       "doneCount": 1,
       "totalCount": 30
+    },
+    {
+      "ticket": "MICHAEL-ZAGAME-SR-122222",
+      "status": "in_progress",
+      "createdBy": "Michael Zagame",
+      "createdAt": "2026-10-07T15:42:38.862Z",
+      "updatedAt": "2026-10-07T15:42:38.862Z",
+      "doneCount": 0,
+      "totalCount": 30
     }
   ]
 }
